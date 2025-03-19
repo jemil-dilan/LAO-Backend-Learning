@@ -9,17 +9,20 @@ class JeuDevinetteTest {
 
     @Test
     void randomNumberGenerationTest(){
-
+        //given
+        //when
+        int actualResult = objectUnderTest.randomNumberGenerator();
+        //then
+        assertTrue(actualResult >=0 && actualResult < 100);
     }
-
-    @Test
-    void userValueTest(){
-
-    }
-
 
     @Test
     void comparisonTest(){
-
+        //given
+        int userValue = 20;
+        //when
+        boolean actualResult = objectUnderTest.comparingValues(userValue);
+        //then
+        assertFalse(actualResult);
     }
 }
