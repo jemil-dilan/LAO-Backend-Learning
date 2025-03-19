@@ -5,14 +5,12 @@ import java.util.Objects;
 public class Product {
     private int id;
     private String name;
-    private int price;
     private int quantity;
 
 
-    public Product(int id, String name, int price, int quantity){
+    public Product(int id, String name, int quantity){
         this.id = id;
         this.name = name;
-        this.price = price;
         this.quantity = quantity;
     }
 
@@ -28,18 +26,18 @@ public class Product {
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
         Product product = (Product) o;
-        return getId() == product.getId() && price == product.price && quantity == product.quantity && Objects.equals(name, product.name);
+        return getId() == product.getId() && getQuantity() == product.getQuantity() && Objects.equals(name, product.name);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), name, price, quantity);
+        return Objects.hash(getId(), name, getQuantity());
     }
 
     @Override
     public String toString() {
         return "id=" + id +
                 ", name='" + name + '\'' +
-                ", price=" + price;
+                ", quantity=" + quantity ;
     }
 }

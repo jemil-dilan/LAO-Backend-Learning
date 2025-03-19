@@ -25,7 +25,7 @@ public class PanierAchat {
     public int productsQuantity(){
         int totalQuantity = 0;
         for(Product product : products){
-            totalQuantity =+ product.getQuantity();
+            totalQuantity += product.getQuantity();
         }
         return totalQuantity;
     }
