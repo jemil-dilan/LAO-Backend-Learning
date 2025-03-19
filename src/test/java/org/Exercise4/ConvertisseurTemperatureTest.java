@@ -10,16 +10,31 @@ class ConvertisseurTemperatureTest {
     void conversionToFahrenheitTest() {
         //given
         int temperature = 25;
-        int temperature2 = 1;
-        int temperature3= 0;
         //when
         double actualResult = objectUnderTest.conversionToFahrenheit(temperature);
-        double actualResult2= objectUnderTest.conversionToFahrenheit(temperature2);
-        double actualResult3 = objectUnderTest.conversionToFahrenheit(temperature3);
         //then
         assertEquals(77, actualResult);
-        assertEquals(33.8, actualResult2);
-        assertEquals(32, actualResult3);
+    }
+
+    @Test
+    void conversionToFahrenheitToAnotherValueTest() {
+        //given
+        int temperature = 1;
+        //when
+        double actualResult= objectUnderTest.conversionToFahrenheit(temperature);
+        //then
+        assertEquals(33.8, actualResult);
+    }
+
+    @Test
+    void conversionToFahrenheitFor0Test() {
+        //given
+
+        int temperature= 0;
+        //when
+        double actualResult = objectUnderTest.conversionToFahrenheit(temperature);
+        //then
+        assertEquals(32, actualResult);
     }
 
 
