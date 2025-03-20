@@ -1,5 +1,7 @@
 package org.Exercise3;
 
+import org.Exercise7.Product;
+
 import java.util.*;
 
 public class GestionaireTaches {
@@ -42,5 +44,15 @@ public class GestionaireTaches {
         return taches.stream()
                 .filter(tache -> Objects.equals(tache.getDescription(), description))
                 .findFirst();
+    }
+
+    public Tache modifyTaskDescription(String description, String newDescription){
+        for (Tache tache : taches){
+            if (Objects.equals(tache.getDescription(), description)){
+                tache.setDescription(newDescription);
+                return tache;
+            }
+        }
+        return null;
     }
 }

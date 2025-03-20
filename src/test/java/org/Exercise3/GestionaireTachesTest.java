@@ -1,5 +1,6 @@
 package org.Exercise3;
 
+import org.Exercise7.Product;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -104,5 +105,43 @@ class GestionaireTachesTest {
         Optional<Tache> actualResult = objectUnderTest.findTaskById(null);
         //then
         assertTrue(actualResult.isEmpty());
+    }
+
+    @Test
+    void modifyProductQuantityValidTest(){
+        //given
+        objectUnderTest.addTask(new Tache("Acheter telephone",
+                Status.EN_COURS));
+        objectUnderTest.addTask(new Tache("faire des course",
+                Status.TERMINER));
+        objectUnderTest.addTask(new Tache("Laver habit",
+                Status.ANNULER));
+        Tache expected = new Tache("Lire", Status.EN_COURS);
+        //when
+        Tache actualResult = objectUnderTest.modifyTaskDescription("Acheter telephone",
+                "Lire");
+        //then
+        assertAll(
+                () -> assertNotNull(actualResult),
+                () -> assertEquals(expected, actualResult)
+        );
+
+        ;
+    }
+
+    @Test
+    void modifyProductQuantityInValidTest(){
+        //given
+        objectUnderTest.addTask(new Tache("Acheter telephone",
+                Status.EN_COURS));
+        objectUnderTest.addTask(new Tache("faire des course",
+                Status.TERMINER));
+        objectUnderTest.addTask(new Tache("Laver habit",
+                Status.ANNULER));
+        //when
+        Tache actualResult = objectUnderTest.modifyTaskDescription("vendre",
+                "Coder");
+        //then
+        assertNull(actualResult);
     }
 }

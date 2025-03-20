@@ -29,4 +29,20 @@ public class PanierAchat {
         }
         return totalQuantity;
     }
+
+    public Optional<Product> findProductById(int id){
+        return products.stream()
+                .filter(product -> product.getId() == id)
+                .findFirst();
+    }
+
+    public Product modifyProductQuantity(int id, int newQuantity){
+        for (Product product : products){
+            if (product.getId() == id){
+                product.setQuantity(newQuantity);
+                return product;
+            }
+        }
+        return null;
+    }
 }
