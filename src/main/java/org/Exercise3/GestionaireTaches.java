@@ -37,4 +37,10 @@ public class GestionaireTaches {
         }
         throw new RuntimeException("Tache introuvable");
     }
+
+    public Optional<Tache> findTaskById(String description){
+        return taches.stream()
+                .filter(tache -> Objects.equals(tache.getDescription(), description))
+                .findFirst();
+    }
 }
