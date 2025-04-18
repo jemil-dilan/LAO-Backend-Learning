@@ -1,5 +1,6 @@
 package com.laoBackend.gestionaire_de_biblioteque.domain;
 
+import com.laoBackend.gestionaire_de_biblioteque.domain.Enum.Role;
 import com.laoBackend.gestionaire_de_biblioteque.domain.Enum.Status;
 import jakarta.persistence.*;
 
@@ -18,7 +19,17 @@ public class Member {
     private String address;
     private LocalDateTime createdOn;
     private LocalDateTime updatedOn;
-    private Status Role;
+    @Enumerated(EnumType.STRING)
+    private Role role;
+
+
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
+    }
 
     public LocalDateTime getUpdatedOn() {
         return updatedOn;
@@ -26,14 +37,6 @@ public class Member {
 
     public void setUpdatedOn(LocalDateTime updatedOn) {
         this.updatedOn = updatedOn;
-    }
-
-    public Status getRole() {
-        return Role;
-    }
-
-    public void setRole(Status role) {
-        Role = role;
     }
 
     public LocalDateTime getCreatedOn() {

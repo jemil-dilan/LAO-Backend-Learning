@@ -21,19 +21,26 @@ public class TransactionController {
 
     @GetMapping
     public ResponseEntity<List<TransactionDTO>> getAllBooks(@RequestParam Long memberId){
-        return ResponseEntity.ok(transactionService.getAllTransactions(memberId));
+        List<TransactionDTO> allTransactions = transactionService.getAllTransactions(memberId);
+        return allTransactions.isEmpty() ?
+                ResponseEntity.status(HttpStatus.NO_CONTENT).build() :
+                ResponseEntity.ok(allTransactions);
     }
 
     @PostMapping("/borrow")
     public ResponseEntity<TransactionDTO> borrowBook(@RequestParam Long memberId, @RequestParam Long bookId){
         TransactionDTO transactionDTO = transactionService.borrowBook(memberId, bookId);
-        return ResponseEntity.ok(transactionDTO);
+        return transactionDTO == null ?
+                ResponseEntity.status(HttpStatus.BAD_REQUEST).build() :
+                ResponseEntity.status(HttpStatus.CREATED).body(transactionDTO);
     }
 
     @PutMapping("/return/{id}")
     public ResponseEntity<TransactionDTO> returnBorrowedBook(@PathVariable Long id){
         TransactionDTO returnedBook = transactionService.returnBook(id);
-        return ResponseEntity.ok(returnedBook);
+        return returnedBook == null ?
+                ResponseEntity.status(HttpStatus.NOT_FOUND).build() :
+                ResponseEntity.ok(returnedBook);
     }
     @GetMapping("/status/{status}")
     public ResponseEntity<List<TransactionDTO>> getTransactionByStatus(@PathVariable String status, @RequestParam Long memberId){
@@ -41,7 +48,7 @@ public class TransactionController {
             Status transactionStatus = Status.valueOf(status.toUpperCase());
             List<TransactionDTO> transactionByStatus = transactionService.getTransactionByStatus(transactionStatus, memberId);
             return transactionByStatus.isEmpty() ?
-                    ResponseEntity.status(HttpStatus.NO_CONTENT).build() :
+                    ResponseEntity.status(HttpStatus.NOT_FOUND).build() :
                     ResponseEntity.ok(transactionByStatus);
         } catch (IllegalArgumentException e){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
@@ -51,18 +58,24 @@ public class TransactionController {
     @GetMapping("/{id}")
     public ResponseEntity<TransactionDTO> getTransactionById(@PathVariable Long id, @RequestParam Long memberId){
         TransactionDTO transactionById = transactionService.getTransactionById(id, memberId);
-        return ResponseEntity.ok(transactionById);
+        return transactionById == null ?
+                ResponseEntity.status(HttpStatus.NOT_FOUND).build() :
+                ResponseEntity.ok(transactionById);
     }
 
     @GetMapping("/members/{id}")
     public ResponseEntity<List<TransactionDTO>> getUserHistory(@PathVariable Long id){
         List<TransactionDTO> userTransactionHistory = transactionService.getUserTransactionHistory(id);
-        return ResponseEntity.ok(userTransactionHistory);
+        return userTransactionHistory.isEmpty() ?
+                ResponseEntity.status(HttpStatus.NO_CONTENT).build() :
+                ResponseEntity.ok(userTransactionHistory);
     }
 
     @GetMapping("/books/{id}")
     public ResponseEntity<List<TransactionDTO>> getBookHistory(@PathVariable Long id, @RequestParam Long memberId){
         List<TransactionDTO> bookTransactionHistory = transactionService.getBookTransactionHistory(id, memberId);
-        return ResponseEntity.ok(bookTransactionHistory);
+        return bookTransactionHistory.isEmpty() ?
+                ResponseEntity.status(HttpStatus.NO_CONTENT).build() :
+                ResponseEntity.ok(bookTransactionHistory);
     }
 }
