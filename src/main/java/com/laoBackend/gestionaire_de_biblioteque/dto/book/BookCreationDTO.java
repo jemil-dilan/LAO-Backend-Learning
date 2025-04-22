@@ -75,4 +75,14 @@ public class BookCreationDTO {
         this.bookDescription = bookDescription;
     }
 
+    public BookCreationDTO(String bookTitle, String bookAuthor, String publisher, int yearPublished, String genre, String bookDescription, int availableCopies, int totalCopies) {
+        this.bookTitle = bookTitle;
+        this.bookAuthor = bookAuthor;
+        this.publisher = publisher;
+        this.yearPublished = yearPublished;
+        this.genre = genre;
+        this.bookDescription = bookDescription;
+        this.availableCopies = availableCopies;
+        this.totalCopies = totalCopies;
+    }
 }

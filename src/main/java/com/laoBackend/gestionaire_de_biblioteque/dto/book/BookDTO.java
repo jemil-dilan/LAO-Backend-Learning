@@ -75,13 +75,13 @@ public class BookDTO {
         this.description = description;
     }
 
-    //    private String memberName;
-//
-//    public String getMemberName() {
-//        return memberName;
-//    }
-//
-//    public void setMemberName(String memberName) {
-//        this.memberName = memberName;
-//    }
+    public BookDTO(String title, String author, String publisher, int yearPublished, String genre, String description, int availableCopies) {
+        this.title = title;
+        this.author = author;
+        this.publisher = publisher;
+        this.yearPublished = yearPublished;
+        this.genre = genre;
+        this.description = description;
+        this.availableCopies = availableCopies;
+    }
 }
