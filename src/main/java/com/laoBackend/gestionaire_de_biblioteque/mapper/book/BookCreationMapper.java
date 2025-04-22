@@ -7,6 +7,7 @@ import org.mapstruct.Mapping;
 
 @Mapper(componentModel = "spring")
 public interface BookCreationMapper {
+    @Mapping(target = "updatedOn", ignore = true)
     @Mapping(target = "createdOn", ignore = true)
     @Mapping(target = "id", ignore = true)
     @Mapping(source = "bookTitle", target = "title")

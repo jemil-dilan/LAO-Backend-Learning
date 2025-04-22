@@ -7,6 +7,14 @@ public class MemberDTO {
     private String address;
     private String role;
 
+    public MemberDTO(Long id, String name, String email, String address, String role) {
+        this.id = id;
+        this.name = name;
+        this.email = email;
+        this.address = address;
+        this.role = role;
+    }
+
     public String getRole() {
         return role;
     }

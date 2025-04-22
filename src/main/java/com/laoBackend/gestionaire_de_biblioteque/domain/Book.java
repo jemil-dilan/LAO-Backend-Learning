@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 @Entity
 public class Book {
@@ -20,6 +21,18 @@ public class Book {
     private int totalCopies;
     private LocalDateTime createdOn;
     private LocalDateTime updatedOn;
+
+
+
+    public Book(Long id, String title, String author, String publisher, int yearPublished, int availableCopies, int totalCopies) {
+        this.id = id;
+        this.title = title;
+        this.author = author;
+        this.publisher = publisher;
+        this.yearPublished = yearPublished;
+        this.availableCopies = availableCopies;
+        this.totalCopies = totalCopies;
+    }
 
     public LocalDateTime getUpdatedOn() {
         return updatedOn;
@@ -110,5 +123,17 @@ public class Book {
 
     public void setCreatedOn(LocalDateTime createdOn) {
         this.createdOn = createdOn;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        Book book = (Book) o;
+        return getYearPublished() == book.getYearPublished() && getAvailableCopies() == book.getAvailableCopies() && getTotalCopies() == book.getTotalCopies() && Objects.equals(getId(), book.getId()) && Objects.equals(getTitle(), book.getTitle()) && Objects.equals(getAuthor(), book.getAuthor()) && Objects.equals(getPublisher(), book.getPublisher()) && Objects.equals(getGenre(), book.getGenre()) && Objects.equals(getDescription(), book.getDescription()) && Objects.equals(getCreatedOn(), book.getCreatedOn()) && Objects.equals(getUpdatedOn(), book.getUpdatedOn());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId(), getTitle(), getAuthor(), getPublisher(), getYearPublished(), getGenre(), getDescription(), getAvailableCopies(), getTotalCopies(), getCreatedOn(), getUpdatedOn());
     }
 }

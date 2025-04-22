@@ -8,6 +8,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 public class Member {
@@ -22,6 +23,20 @@ public class Member {
     @Enumerated(EnumType.STRING)
     private Role role;
 
+
+    public Member(Long id, String name, String email, String address, LocalDateTime createdOn, LocalDateTime updatedOn, Role role) {
+        this.id = id;
+        this.name = name;
+        this.email = email;
+        this.address = address;
+        this.createdOn = createdOn;
+        this.updatedOn = updatedOn;
+        this.role = role;
+    }
+
+    public Member() {
+
+    }
 
     public Role getRole() {
         return role;
@@ -77,5 +92,17 @@ public class Member {
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        Member member = (Member) o;
+        return Objects.equals(getId(), member.getId()) && Objects.equals(getName(), member.getName()) && Objects.equals(getEmail(), member.getEmail()) && Objects.equals(getAddress(), member.getAddress()) && Objects.equals(getCreatedOn(), member.getCreatedOn()) && Objects.equals(getUpdatedOn(), member.getUpdatedOn()) && getRole() == member.getRole();
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId(), getName(), getEmail(), getAddress(), getCreatedOn(), getUpdatedOn(), getRole());
     }
 }

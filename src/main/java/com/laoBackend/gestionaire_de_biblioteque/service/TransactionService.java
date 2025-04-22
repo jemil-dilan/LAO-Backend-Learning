@@ -1,6 +1,7 @@
 package com.laoBackend.gestionaire_de_biblioteque.service;
 
 import com.laoBackend.gestionaire_de_biblioteque.domain.Book;
+import com.laoBackend.gestionaire_de_biblioteque.domain.Enum.Role;
 import com.laoBackend.gestionaire_de_biblioteque.domain.Member;
 import com.laoBackend.gestionaire_de_biblioteque.domain.Enum.Status;
 import com.laoBackend.gestionaire_de_biblioteque.domain.Transaction;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class TransactionService {
@@ -75,6 +77,7 @@ public class TransactionService {
                 book,
                 LocalDateTime.now(),
                 LocalDateTime.now().plusWeeks(2),
+                null,
                 Status.BORROWED);
         Transaction savedTransaction = transactionRepository.save(transaction);
         return transactionMapper.toDTO(savedTransaction);

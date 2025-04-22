@@ -13,6 +13,16 @@ public class TransactionDTO {
     private LocalDateTime returnDate;
     private Status status;
 
+    public TransactionDTO(Long id, String memberName, String bookTitle, LocalDateTime borrowDate, LocalDateTime dueDate, LocalDateTime returnDate, Status status) {
+        this.id = id;
+        this.memberName = memberName;
+        this.bookTitle = bookTitle;
+        this.borrowDate = borrowDate;
+        this.dueDate = dueDate;
+        this.returnDate = returnDate;
+        this.status = status;
+    }
+
     public Status getStatus() {
         return status;
     }

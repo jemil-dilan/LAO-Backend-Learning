@@ -6,6 +6,13 @@ public class MemberCreationDTO {
     private String address;
     private String role;
 
+    public MemberCreationDTO(String name, String email, String address, String role) {
+        this.name = name;
+        this.email = email;
+        this.address = address;
+        this.role = role;
+    }
+
     public String getName() {
         return name;
     }

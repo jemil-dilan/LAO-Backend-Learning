@@ -4,6 +4,7 @@ import com.laoBackend.gestionaire_de_biblioteque.domain.Enum.Status;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 @Entity
 public class Transaction {
@@ -41,11 +42,12 @@ public class Transaction {
     public Transaction() {
     }
 
-    public Transaction(Member member, Book book, LocalDateTime borrowDate, LocalDateTime dueDate, Status status) {
+    public Transaction(Member member, Book book, LocalDateTime borrowDate, LocalDateTime dueDate, LocalDateTime returnDate, Status status) {
         this.member = member;
         this.book = book;
         this.borrowDate = borrowDate;
         this.dueDate = dueDate;
+        this.returnDate = returnDate;
         this.status = status;
     }
 
@@ -87,5 +89,17 @@ public class Transaction {
 
     public void setMember(Member member) {
         this.member = member;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        Transaction that = (Transaction) o;
+        return Objects.equals(getId(), that.getId()) && Objects.equals(getMember(), that.getMember()) && Objects.equals(getBook(), that.getBook()) && Objects.equals(getBorrowDate(), that.getBorrowDate()) && Objects.equals(getDueDate(), that.getDueDate()) && Objects.equals(getReturnDate(), that.getReturnDate()) && getStatus() == that.getStatus();
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId(), getMember(), getBook(), getBorrowDate(), getDueDate(), getReturnDate(), getStatus());
     }
 }
