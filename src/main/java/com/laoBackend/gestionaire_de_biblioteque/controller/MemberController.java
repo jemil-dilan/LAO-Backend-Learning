@@ -20,34 +20,23 @@ public class MemberController {
 
     @GetMapping
     public ResponseEntity<List<MemberDTO>> getAllMembers(){
-        List<MemberDTO> allMembers = memberService.getAllMembers();
-        return allMembers.isEmpty() ?
-                ResponseEntity.status(HttpStatus.NO_CONTENT).build() :
-                ResponseEntity.ok(allMembers);
+        return ResponseEntity.ok(memberService.getAllMembers());
     }
 
     @PostMapping
     public ResponseEntity<MemberDTO> createMember(@RequestBody MemberCreationDTO memberCreationDTO){
-        MemberDTO createdMember = memberService.createMember(memberCreationDTO);
-        return createdMember == null ?
-                ResponseEntity.status(HttpStatus.BAD_REQUEST).build() :
-                ResponseEntity.status(HttpStatus.CREATED).body(createdMember);
+        return ResponseEntity.status(HttpStatus.CREATED).body(memberService.createMember(memberCreationDTO));
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<MemberDTO> getMemberById(@PathVariable Long id){
-        MemberDTO member = memberService.getMemberById(id);
-        return member == null ?
-                ResponseEntity.status(HttpStatus.NOT_FOUND).build() :
-                ResponseEntity.ok(member);
+        return ResponseEntity.ok(memberService.getMemberById(id));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<MemberDTO> updateMember(@PathVariable Long id, @RequestBody MemberCreationDTO memberCreationDTO){
-        MemberDTO updatedMember = memberService.updateMember(id, memberCreationDTO);
-        return updatedMember == null ?
-                ResponseEntity.status(HttpStatus.NOT_FOUND).build() :
-                ResponseEntity.ok(updatedMember);
+    public ResponseEntity<Void> updateMember(@PathVariable Long id, @RequestBody MemberCreationDTO memberCreationDTO){
+        memberService.updateMember(id, memberCreationDTO);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
     @DeleteMapping("/{id}")

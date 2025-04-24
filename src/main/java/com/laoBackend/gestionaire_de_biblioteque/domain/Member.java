@@ -1,14 +1,9 @@
 package com.laoBackend.gestionaire_de_biblioteque.domain;
 
 import com.laoBackend.gestionaire_de_biblioteque.domain.Enum.Role;
-import com.laoBackend.gestionaire_de_biblioteque.domain.Enum.Status;
 import jakarta.persistence.*;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
 
 @Entity
 public class Member {
@@ -23,7 +18,6 @@ public class Member {
     @Enumerated(EnumType.STRING)
     private Role role;
 
-
     public Member(Long id, String name, String email, String address, LocalDateTime createdOn, LocalDateTime updatedOn, Role role) {
         this.id = id;
         this.name = name;
@@ -35,31 +29,6 @@ public class Member {
     }
 
     public Member() {
-
-    }
-
-    public Role getRole() {
-        return role;
-    }
-
-    public void setRole(Role role) {
-        this.role = role;
-    }
-
-    public LocalDateTime getUpdatedOn() {
-        return updatedOn;
-    }
-
-    public void setUpdatedOn(LocalDateTime updatedOn) {
-        this.updatedOn = updatedOn;
-    }
-
-    public LocalDateTime getCreatedOn() {
-        return createdOn;
-    }
-
-    public void setCreatedOn(LocalDateTime createdOn) {
-        this.createdOn = createdOn;
     }
 
     public Long getId() {
@@ -94,15 +63,27 @@ public class Member {
         this.address = address;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (o == null || getClass() != o.getClass()) return false;
-        Member member = (Member) o;
-        return Objects.equals(getId(), member.getId()) && Objects.equals(getName(), member.getName()) && Objects.equals(getEmail(), member.getEmail()) && Objects.equals(getAddress(), member.getAddress()) && Objects.equals(getCreatedOn(), member.getCreatedOn()) && Objects.equals(getUpdatedOn(), member.getUpdatedOn()) && getRole() == member.getRole();
+    public LocalDateTime getCreatedOn() {
+        return createdOn;
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(getId(), getName(), getEmail(), getAddress(), getCreatedOn(), getUpdatedOn(), getRole());
+    public void setCreatedOn(LocalDateTime createdOn) {
+        this.createdOn = createdOn;
+    }
+
+    public LocalDateTime getUpdatedOn() {
+        return updatedOn;
+    }
+
+    public void setUpdatedOn(LocalDateTime updatedOn) {
+        this.updatedOn = updatedOn;
+    }
+
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
     }
 }

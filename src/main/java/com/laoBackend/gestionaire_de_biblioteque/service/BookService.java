@@ -16,9 +16,9 @@ import java.util.List;
 @Service
 public class BookService {
     private final MemberRepository memberRepository;
-    private BookRepository bookRepository;
-    private BookCreationMapper bookCreationMapper;
-    private BookMapper bookMapper;
+    private final BookRepository bookRepository;
+    private final BookCreationMapper bookCreationMapper;
+    private final BookMapper bookMapper;
 
     public BookService(BookRepository bookRepository,
                        BookCreationMapper bookCreationMapper,
@@ -31,12 +31,12 @@ public class BookService {
 
     public BookDTO createBook(BookCreationDTO bookCreationDTO, Long memberId) {
         if(bookRepository.existsByTitleAndAuthorAndPublisher(
-                bookCreationDTO.getBookTitle(),
-                bookCreationDTO.getBookAuthor(),
+                bookCreationDTO.getTitle(),
+                bookCreationDTO.getAuthor(),
                 bookCreationDTO.getPublisher())) {
             throw new IllegalStateException("Book already exists");
         }
-        Member member = memberRepository.findById(memberId).orElseThrow(() -> new RuntimeException("User doesn't exist"));
+        Member member = memberRepository.findById(memberId).orElseThrow(() -> new ResourceNotFoundException("User doesn't exist"));
         if(!member.getRole().toString().equalsIgnoreCase("LIBRARIAN")){
             throw new RuntimeException("Only librarian can add a book");
         }
@@ -46,46 +46,41 @@ public class BookService {
         return bookMapper.toDto(book);
     }
     public List<BookDTO> getAllBooks() {
-        List<Book> allBooks = bookRepository.findAll();
-        return bookMapper.toDto(allBooks);
+        return  bookRepository.findAll().stream().map(bookMapper::toDto).toList();
     }
     public BookDTO getBookById(Long id, Long memberId) {
-        Member member = memberRepository.findById(memberId).orElseThrow(() -> new IllegalStateException("User doesn't exist"));
+        Member member = memberRepository.findById(memberId).orElseThrow(() -> new ResourceNotFoundException("User doesn't exist"));
         if(!member.getRole().toString().equalsIgnoreCase("LIBRARIAN")){
             throw new RuntimeException("Only librarian can get the book by ID");
         }
         return bookRepository.findById(id)
                 .map(bookMapper::toDto)
-                .orElse(null);
+                .orElseThrow(() -> new ResourceNotFoundException("User not found"));
     }
     public List<BookDTO> getBooksByTitle(String title) {
-        List<Book> bookList = bookRepository.findByTitle(title);
-        return bookMapper.toDto(bookList);
+        return bookMapper.toDto(bookRepository.findByTitle(title));
     }
     public List<BookDTO> getBooksByAuthor(String author) {
-        List<Book> booksByAuthor = bookRepository.findByAuthor(author);
-        return bookMapper.toDto(booksByAuthor);
+        return bookMapper.toDto(bookRepository.findByAuthor(author));
     }
     public List<BookDTO> getBooksByGenre(String genre) {
-        List<Book> booksByGenre = bookRepository.findByGenre(genre);
-        return bookMapper.toDto(booksByGenre);
+        return bookMapper.toDto(bookRepository.findByGenre(genre));
     }
     public List<BookDTO> getBooksByPublisher(String publisher) {
-        List<Book> booksByPublisher = bookRepository.findByPublisher(publisher);
-        return bookMapper.toDto(booksByPublisher);
+        return bookMapper.toDto(bookRepository.findByPublisher(publisher));
     }
-    public BookDTO updateBook(Long id, BookCreationDTO bookCreationDTO, Long memberId) {
-        Member member = memberRepository.findById(memberId).orElseThrow(() -> new RuntimeException("User doesn't exist"));
+    public void updateBook(Long id, BookCreationDTO bookCreationDTO, Long memberId) {
+        Member member = memberRepository.findById(memberId).orElseThrow(() -> new ResourceNotFoundException("User doesn't exist"));
         if(!member.getRole().toString().equalsIgnoreCase("LIBRARIAN")){
             throw new RuntimeException("Only librarian can add a book");
         }
         if (bookRepository.existsById(id)) {
             Book book = bookCreationMapper.toEntity(bookCreationDTO);
             book.setId(id);
-            Book updatedBook = bookRepository.save(book);
-            return bookMapper.toDto(updatedBook);
+            bookRepository.save(book);
+        } else {
+            throw new ResourceNotFoundException("Book not found");
         }
-        throw new RuntimeException("Book not found");
     }
     public void deleteBook(Long id, Long memberId) {
         Member member = memberRepository.findById(memberId).orElseThrow(() -> new RuntimeException("User doesn't exist"));

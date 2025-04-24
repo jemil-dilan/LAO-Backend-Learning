@@ -4,9 +4,9 @@ import com.laoBackend.gestionaire_de_biblioteque.domain.Enum.Status;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
-import java.util.Objects;
 
 @Entity
+
 public class Transaction {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,11 +23,16 @@ public class Transaction {
     @Enumerated(EnumType.STRING)
     private Status status;
 
-    public Status getStatus() {
-        return status;
+    public Transaction() {
     }
 
-    public void setStatus(Status status) {
+    public Transaction(Long id, Member member, Book book, LocalDateTime borrowDate, LocalDateTime dueDate, LocalDateTime returnDate, Status status) {
+        this.id = id;
+        this.member = member;
+        this.book = book;
+        this.borrowDate = borrowDate;
+        this.dueDate = dueDate;
+        this.returnDate = returnDate;
         this.status = status;
     }
 
@@ -39,16 +44,20 @@ public class Transaction {
         this.id = id;
     }
 
-    public Transaction() {
+    public Member getMember() {
+        return member;
     }
 
-    public Transaction(Member member, Book book, LocalDateTime borrowDate, LocalDateTime dueDate, LocalDateTime returnDate, Status status) {
+    public void setMember(Member member) {
         this.member = member;
+    }
+
+    public Book getBook() {
+        return book;
+    }
+
+    public void setBook(Book book) {
         this.book = book;
-        this.borrowDate = borrowDate;
-        this.dueDate = dueDate;
-        this.returnDate = returnDate;
-        this.status = status;
     }
 
     public LocalDateTime getBorrowDate() {
@@ -75,31 +84,11 @@ public class Transaction {
         this.returnDate = returnDate;
     }
 
-    public Book getBook() {
-        return book;
+    public Status getStatus() {
+        return status;
     }
 
-    public void setBook(Book book) {
-        this.book = book;
-    }
-
-    public Member getMember() {
-        return member;
-    }
-
-    public void setMember(Member member) {
-        this.member = member;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (o == null || getClass() != o.getClass()) return false;
-        Transaction that = (Transaction) o;
-        return Objects.equals(getId(), that.getId()) && Objects.equals(getMember(), that.getMember()) && Objects.equals(getBook(), that.getBook()) && Objects.equals(getBorrowDate(), that.getBorrowDate()) && Objects.equals(getDueDate(), that.getDueDate()) && Objects.equals(getReturnDate(), that.getReturnDate()) && getStatus() == that.getStatus();
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(getId(), getMember(), getBook(), getBorrowDate(), getDueDate(), getReturnDate(), getStatus());
+    public void setStatus(Status status) {
+        this.status = status;
     }
 }

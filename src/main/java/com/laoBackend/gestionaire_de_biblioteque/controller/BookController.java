@@ -18,66 +18,43 @@ public class BookController {
 
     @GetMapping
     public ResponseEntity<List<BookDTO>> getAllBooks(){
-        List<BookDTO> allBooks = bookService.getAllBooks();
-        return allBooks.isEmpty() ?
-                ResponseEntity.status(HttpStatus.NO_CONTENT).build() :
-                ResponseEntity.ok(allBooks);
+        return ResponseEntity.ok(bookService.getAllBooks());
     }
 
     @PostMapping
     public ResponseEntity<BookDTO> createBook(@RequestBody BookCreationDTO bookCreationDTO, @RequestParam Long memberId){
-        BookDTO createdBook = bookService.createBook(bookCreationDTO, memberId);
-        return createdBook == null ?
-                ResponseEntity.status(HttpStatus.BAD_REQUEST).build() :
-                ResponseEntity.status(HttpStatus.CREATED).body(createdBook);
+        return ResponseEntity.status(HttpStatus.CREATED).body(bookService.createBook(bookCreationDTO, memberId));
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<BookDTO> getBookById(@PathVariable Long id, @RequestParam Long memberId){
-        BookDTO book = bookService.getBookById(id, memberId);
-        return book == null ?
-                ResponseEntity.status(HttpStatus.NOT_FOUND).build() :
-                ResponseEntity.ok(book);
+        return ResponseEntity.ok(bookService.getBookById(id, memberId));
     }
 
     @GetMapping("/title/{title}")
     public ResponseEntity<List<BookDTO>> getBooksByTitle(@PathVariable String title){
-        List<BookDTO> booksByTitle = bookService.getBooksByTitle(title);
-        return booksByTitle.isEmpty() ?
-                ResponseEntity.status(HttpStatus.NO_CONTENT).build() :
-                ResponseEntity.ok(booksByTitle);
+        return ResponseEntity.ok(bookService.getBooksByTitle(title));
     }
 
     @GetMapping("/author/{author}")
     public ResponseEntity<List<BookDTO>> getBooksByAuthor(@PathVariable String author){
-        List<BookDTO> booksByAuthor = bookService.getBooksByAuthor(author);
-        return booksByAuthor.isEmpty() ?
-                ResponseEntity.status(HttpStatus.NO_CONTENT).build() :
-                ResponseEntity.ok(booksByAuthor);
+        return ResponseEntity.ok(bookService.getBooksByAuthor(author));
     }
 
     @GetMapping("/genre/{genre}")
     public ResponseEntity<List<BookDTO>> getBooksByGenre(@PathVariable String genre){
-        List<BookDTO> booksByGenre = bookService.getBooksByGenre(genre);
-        return booksByGenre.isEmpty() ?
-                ResponseEntity.status(HttpStatus.NO_CONTENT).build() :
-                ResponseEntity.ok(booksByGenre);
+        return ResponseEntity.ok(bookService.getBooksByGenre(genre));
     }
 
     @GetMapping("/publisher/{publisher}")
     public ResponseEntity<List<BookDTO>> getBooksByPublisher(@PathVariable String publisher){
-        List<BookDTO> booksByPublisher = bookService.getBooksByPublisher(publisher);
-        return booksByPublisher.isEmpty() ?
-                ResponseEntity.status(HttpStatus.NO_CONTENT).build() :
-                ResponseEntity.ok(booksByPublisher);
+        return ResponseEntity.ok(bookService.getBooksByPublisher(publisher));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<BookDTO> updateBook(@PathVariable Long id, @RequestBody BookCreationDTO bookCreationDTO, @RequestParam Long memberId){
-        BookDTO updatedBook = bookService.updateBook(id, bookCreationDTO, memberId);
-        return updatedBook == null ?
-                ResponseEntity.status(HttpStatus.NOT_FOUND).build() :
-                ResponseEntity.ok(updatedBook);
+    public ResponseEntity<Void> updateBook(@PathVariable Long id, @RequestBody BookCreationDTO bookCreationDTO, @RequestParam Long memberId){
+        bookService.updateBook(id, bookCreationDTO, memberId);
+        return  ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
     @DeleteMapping("/{id}")

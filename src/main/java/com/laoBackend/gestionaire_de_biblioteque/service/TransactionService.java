@@ -1,9 +1,8 @@
 package com.laoBackend.gestionaire_de_biblioteque.service;
 
 import com.laoBackend.gestionaire_de_biblioteque.domain.Book;
-import com.laoBackend.gestionaire_de_biblioteque.domain.Enum.Role;
-import com.laoBackend.gestionaire_de_biblioteque.domain.Member;
 import com.laoBackend.gestionaire_de_biblioteque.domain.Enum.Status;
+import com.laoBackend.gestionaire_de_biblioteque.domain.Member;
 import com.laoBackend.gestionaire_de_biblioteque.domain.Transaction;
 import com.laoBackend.gestionaire_de_biblioteque.dto.TransactionDTO;
 import com.laoBackend.gestionaire_de_biblioteque.mapper.TransactionMapper;
@@ -14,14 +13,13 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class TransactionService {
-    private BookRepository bookRepository;
-    private MemberRepository memberRepository;
-    private TransactionRepository transactionRepository;
-    private TransactionMapper transactionMapper;
+    private final BookRepository bookRepository;
+    private final MemberRepository memberRepository;
+    private final TransactionRepository transactionRepository;
+    private final TransactionMapper transactionMapper;
 
     public TransactionService(BookRepository bookRepository, MemberRepository memberRepository, TransactionRepository transactionRepository, TransactionMapper transactionMapper) {
         this.bookRepository = bookRepository;
@@ -35,8 +33,7 @@ public class TransactionService {
         if(!member.getRole().toString().equalsIgnoreCase("LIBRARIAN")){
             throw new RuntimeException("Only librarian can get all the transactions");
         }
-        List<Transaction> allTransactions = transactionRepository.findAll();
-        return transactionMapper.toDTO_LIST(allTransactions);
+        return transactionMapper.toDTO(transactionRepository.findAll());
     }
 
     public List<TransactionDTO> getTransactionByStatus (Status status, Long memberId){
@@ -44,8 +41,7 @@ public class TransactionService {
         if(!member.getRole().toString().equalsIgnoreCase("LIBRARIAN")){
             throw new RuntimeException("Only librarian can obtain transactions");
         }
-        List<Transaction> allTransactionByStatus = transactionRepository.findAllByStatus(status);
-        return transactionMapper.toDTO_LIST(allTransactionByStatus);
+        return transactionMapper.toDTO(transactionRepository.findAllByStatus(status));
     }
 
     public TransactionDTO getTransactionById(Long id, Long memberId){
@@ -53,39 +49,35 @@ public class TransactionService {
         if(!member.getRole().toString().equalsIgnoreCase("LIBRARIAN")){
             throw new RuntimeException("Only librarian can obtain transactions");
         }
-        Transaction transaction = transactionRepository.findById(id).orElseThrow();
-        return transactionMapper.toDTO(transaction);
+        return transactionMapper.toDTO(transactionRepository.findById(id).orElseThrow( () -> new ResourceNotFoundException("User doesn't exist")));
     }
 
     public TransactionDTO borrowBook(Long memberId, Long bookId){
-        Member member = memberRepository.findById(memberId)
-                .orElseThrow(() -> new IllegalStateException("User not found"));
+        Member member = memberRepository.findById(memberId).orElseThrow(() -> new ResourceNotFoundException("User not found"));
         if(!member.getRole().toString().equalsIgnoreCase("MEMBER")){
             throw new RuntimeException("Only a member can borrow a book");
         }
-        Book book = bookRepository.findById(bookId)
-                .orElseThrow(() -> new IllegalStateException("Book not found"));
+        Book book = bookRepository.findById(bookId).orElseThrow(() -> new ResourceNotFoundException("Book not found"));
 
         if (book.getAvailableCopies() <=0){
-            throw new IllegalStateException("No copies available");
+            throw new ResourceNotFoundException("No copies available");
         }
 
         book.setAvailableCopies(book.getAvailableCopies() - 1);
         bookRepository.save(book);
-        Transaction transaction = new Transaction(
-                member,
-                book,
-                LocalDateTime.now(),
-                LocalDateTime.now().plusWeeks(2),
-                null,
-                Status.BORROWED);
-        Transaction savedTransaction = transactionRepository.save(transaction);
-        return transactionMapper.toDTO(savedTransaction);
+        Transaction transaction = new Transaction();
+        transaction.setMember(member);
+        transaction.setBook(book);
+        transaction.setBorrowDate(LocalDateTime.now());
+        transaction.setDueDate(LocalDateTime.now().plusWeeks(2));
+        transaction.setReturnDate(null);
+        transaction.setStatus(Status.BORROWED);
+        return transactionMapper.toDTO(transactionRepository.save(transaction));
     }
 
     public TransactionDTO returnBook(Long transactionId) {
         Transaction transaction = transactionRepository.findById(transactionId)
-                .orElseThrow(() -> new IllegalStateException("Transaction not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Transaction not found"));
         if (transaction.getReturnDate() != null){
             throw new IllegalStateException("Book already returned");
         }
@@ -94,22 +86,19 @@ public class TransactionService {
         bookRepository.save(book);
         transaction.setReturnDate(LocalDateTime.now());
         transaction.setStatus(Status.RETURNED);
-        Transaction updated =transactionRepository.save(transaction);
-        return transactionMapper.toDTO(updated);
+        return transactionMapper.toDTO(transactionRepository.save(transaction));
     }
 
     public List<TransactionDTO> getUserTransactionHistory(Long memberId){
-        List<Transaction> allTransactionForUser = transactionRepository.findAllByMemberId(memberId);
-        return transactionMapper.toDTO_LIST(allTransactionForUser);
+        return transactionMapper.toDTO(transactionRepository.findAllByMemberId(memberId));
     }
 
     public List<TransactionDTO> getBookTransactionHistory(Long bookId, Long memberId){
-        Member member = memberRepository.findById(memberId).orElseThrow(() -> new IllegalStateException("User doesn't exist"));
+        Member member = memberRepository.findById(memberId).orElseThrow(() -> new ResourceNotFoundException("User doesn't exist"));
         if(!member.getRole().toString().equalsIgnoreCase("LIBRARIAN")){
             throw new RuntimeException("Only librarian get transactions of a book");
         }
-        List<Transaction> allByBookId = transactionRepository.findAllByBookId(bookId);
-        return transactionMapper.toDTO_LIST(allByBookId);
+        return transactionMapper.toDTO(transactionRepository.findAllByBookId(bookId));
     }
     
 }

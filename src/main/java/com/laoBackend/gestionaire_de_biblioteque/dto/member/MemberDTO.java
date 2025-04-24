@@ -1,5 +1,6 @@
 package com.laoBackend.gestionaire_de_biblioteque.dto.member;
 
+
 public class MemberDTO {
     private Long id;
     private String name;
@@ -15,12 +16,7 @@ public class MemberDTO {
         this.role = role;
     }
 
-    public String getRole() {
-        return role;
-    }
-
-    public void setRole(String role) {
-        this.role = role;
+    public MemberDTO() {
     }
 
     public Long getId() {
@@ -53,5 +49,13 @@ public class MemberDTO {
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
     }
 }

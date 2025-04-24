@@ -7,13 +7,15 @@ import com.laoBackend.gestionaire_de_biblioteque.dto.member.MemberDTO;
 import com.laoBackend.gestionaire_de_biblioteque.mapper.member.MemberCreationMapper;
 import com.laoBackend.gestionaire_de_biblioteque.mapper.member.MemberMapper;
 import com.laoBackend.gestionaire_de_biblioteque.repository.MemberRepository;
+import com.laoBackend.gestionaire_de_biblioteque.testBuilders.MemberBuilder;
+import com.laoBackend.gestionaire_de_biblioteque.testBuilders.MemberCreationBuilder;
+import com.laoBackend.gestionaire_de_biblioteque.testBuilders.MemberDTOBuilder;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -33,176 +35,134 @@ class MemberServiceTest {
     @InjectMocks
     MemberService memberService;
 
+    MemberBuilder memberBuilder = new MemberBuilder();
+    MemberDTOBuilder memberDTOBuilder = new MemberDTOBuilder();
+    MemberCreationBuilder memberCreationBuilder = new MemberCreationBuilder();
+
     @Test
     void createMember() {
-        MemberCreationDTO memberCreationDTO = new MemberCreationDTO(
-                "john",
-                "john@email.com",
-                "logbesou",
-                "MEMBER"
-        );
+        MemberCreationDTO memberCreationDTO = memberCreationBuilder.build();
 
-        Member member = new Member(
-                1L,
-                "john",
-                "john@email.com",
-                "logbesou",
-                LocalDateTime.now(),
-                null,
-                Role.MEMBER
-        );
+        Member member = memberBuilder.build();
 
-        MemberDTO memberDTO = new MemberDTO(
-                1L,
-                "john",
-                "john@email.com",
-                "logbesou",
-                "MEMBER"
-        );
+        MemberDTO memberDTO = memberDTOBuilder.build();
 
         when(memberCreationMapper.toEntity(memberCreationDTO)).thenReturn(member);
-        when(memberRepository.save(member)).thenReturn(member);
-        when(memberMapper.toDto(member)).thenReturn(memberDTO);
+        when(memberRepository.save(any(Member.class))).thenReturn(member);
+        when(memberMapper.toDto(any(Member.class))).thenReturn(memberDTO);
 
         MemberDTO result = memberService.createMember(memberCreationDTO);
 
         assertThat(result).isEqualTo(memberDTO);
+        assertEquals(memberDTO.getId(), result.getId());
+        assertEquals(memberDTO.getName(), result.getName());
+        assertEquals(memberDTO.getAddress(), result.getAddress());
+        assertEquals(memberDTO.getEmail(), result.getEmail());
+        assertEquals(memberDTO.getRole(), result.getRole());
 
-        verify(memberRepository).save(member);
+        verify(memberRepository).save(any(Member.class));
         verify(memberCreationMapper).toEntity(memberCreationDTO);
-        verify(memberMapper).toDto(member);
+        verify(memberMapper).toDto(any(Member.class));
 
     }
 
     @Test
     void getAllMembers() {
-        MemberDTO memberDTO1 =  new MemberDTO(
-                        1L,
-                        "john",
-                        "john@email.com",
-                        "logbesou",
-                        "MEMBER"
-                );
-        MemberDTO memberDTO2 = new MemberDTO(
-                        2L,
-                        "Roy",
-                        "roy@email.com",
-                        "ndokoti",
-                        "LIBRARIAN"
-                );
+        Member member1 = memberBuilder.build();
+        Member member2 = memberBuilder.withName("Roy").withAddress("ndokoti")
+                .withRole(Role.LIBRARIAN).withEmail("roy@email.com").withId(2L).build();
 
-        Member member1 = new Member(
-                        1L,
-                        "john",
-                        "john@email.com",
-                        "logbesou",
-                        LocalDateTime.now(),
-                        null,
-                        Role.MEMBER
-                );
-        Member member2 = new Member(
-                        2L,
-                        "Roy",
-                        "roy@email.com",
-                        "ndokoti",
-                        LocalDateTime.now().minusDays(5),
-                        null,
-                        Role.LIBRARIAN
-                );
+        MemberDTO memberDTO1 =  memberDTOBuilder.build();
+        MemberDTO memberDTO2 = memberDTOBuilder.withName("Roy").withAddress("ndokoti")
+                .withRole("LIBRARIAN").withEmail("roy@email.com").withId(2L).build();
+
 
         when(memberRepository.findAll()).thenReturn(List.of(member1,member2));
-        when(memberMapper.toDto(List.of(member1,member2)))
-                .thenReturn(List.of(memberDTO1, memberDTO2));
+        when(memberMapper.toDto(List.of(member1, member2))).thenReturn(List.of(memberDTO1, memberDTO2));
+
 
         List<MemberDTO> result = memberService.getAllMembers();
-        assertThat(result).isEqualTo(List.of(memberDTO1, memberDTO2));
-        assertEquals(result.size(), List.of(memberDTO1, memberDTO2).size());
 
-        verify(memberMapper).toDto(List.of(member1,member2));
+        assertThat(result).hasSize(2).contains(memberDTO1, memberDTO2);
+        assertEquals(memberDTO1.getId(), result.getFirst().getId());
+        assertEquals(memberDTO1.getName(), result.getFirst().getName());
+        assertEquals(memberDTO1.getAddress(), result.getFirst().getAddress());
+        assertEquals(memberDTO1.getEmail(), result.getFirst().getEmail());
+        assertEquals(memberDTO1.getRole(), result.getFirst().getRole());
+
+        assertEquals(memberDTO2.getId(), result.getLast().getId());
+        assertEquals(memberDTO2.getName(), result.getLast().getName());
+        assertEquals(memberDTO2.getAddress(), result.getLast().getAddress());
+        assertEquals(memberDTO2.getEmail(), result.getLast().getEmail());
+        assertEquals(memberDTO2.getRole(), result.getLast().getRole());
+
+
+        verify(memberMapper).toDto(List.of(member1, member2));
         verify(memberRepository).findAll();
     }
 
     @Test
     void getMemberById() {
-        Optional<Member> member = Optional.of(new Member(2L,
-                "Roy",
-                "roy@email.com",
-                "ndokoti",
-                LocalDateTime.now().minusDays(5),
-                null,
-                Role.LIBRARIAN));
-        Optional<MemberDTO> memberDTO = Optional.of(new MemberDTO(
-                2L,
-                "Roy",
-                "roy@email.com",
-                "ndokoti",
-                "LIBRARIAN"));
+        Member member = memberBuilder.build();
+       MemberDTO memberDTO = memberDTOBuilder.build();
 
-        when(memberRepository.findById(2L)).thenReturn(member);
-        when(memberMapper.toDto(member.get())).thenReturn(memberDTO.get());
+        when(memberRepository.findById(anyLong())).thenReturn(Optional.of(member));
+        when(memberMapper.toDto(any(Member.class))).thenReturn(memberDTO);
 
         MemberDTO result = memberService.getMemberById(2L);
 
-        assertThat(result).isEqualTo(memberDTO.get());
+        assertEquals(memberDTO.getId(), result.getId());
+        assertEquals(memberDTO.getName(), result.getName());
+        assertEquals(memberDTO.getAddress(), result.getAddress());
+        assertEquals(memberDTO.getEmail(), result.getEmail());
+        assertEquals(memberDTO.getRole(), result.getRole());
+        assertThat(result).isEqualTo(memberDTO);
 
         verify(memberRepository).findById(2L);
-        verify(memberMapper).toDto(member.get());
+        verify(memberMapper).toDto(any(Member.class));
 
     }
 
     @Test
     void updateMember() {
-        MemberCreationDTO memberCreationDTO = new MemberCreationDTO(
-                "john charle",
-                "john@email.com",
-                "logbaba",
-                "MEMBER"
-        );
+        MemberCreationDTO memberCreationDTO = memberCreationBuilder.withName("Roy").withAddress("ndokoti")
+                .withRole("LIBRARIAN").withEmail("roy@email.com").build();
 
-        Member member = new Member(
-                1L,
-                "john charle",
-                "john@email.com",
-                "logbaba",
-                LocalDateTime.now().minusDays(9),
-                LocalDateTime.now(),
-                Role.MEMBER
-        );
+        Member member = memberBuilder.withName("Roy").withAddress("ndokoti")
+                .withRole(Role.LIBRARIAN).withEmail("roy@email.com").withId(2L).build();
 
-        MemberDTO memberDTO = new MemberDTO(
-                1L,
-                "john charle",
-                "john@email.com",
-                "logbaba",
-                "MEMBER"
-        );
+        MemberDTO memberDTO = memberDTOBuilder.withName("Roy").withAddress("ndokoti")
+                .withRole("LIBRARIAN").withEmail("roy@email.com").withId(2L).build();
 
-        when(memberRepository.existsById(1L)).thenReturn(true);
+        when(memberRepository.existsById(anyLong())).thenReturn(true);
         when(memberCreationMapper.toEntity(memberCreationDTO)).thenReturn(member);
-        when(memberRepository.save(member)).thenReturn(member);
-        when(memberMapper.toDto(member)).thenReturn(memberDTO);
+        when(memberRepository.save(any(Member.class))).thenReturn(member);
+        when(memberRepository.findAll()).thenReturn(List.of(member));
+        when(memberMapper.toDto(List.of(member))).thenReturn(List.of(memberDTO));
 
-        MemberDTO result = memberService.updateMember(1L,memberCreationDTO);
+        memberService.updateMember(1L,memberCreationDTO);
+        List<MemberDTO> result = memberService.getAllMembers();
 
-        assertEquals(result.getName(), memberDTO.getName());
-        assertEquals(result.getAddress(), memberDTO.getAddress());
-        assertEquals(result.getEmail(), memberDTO.getEmail());
+        assertEquals(memberDTO.getId(), result.getFirst().getId());
+        assertEquals(memberDTO.getName(), result.getFirst().getName());
+        assertEquals(memberDTO.getAddress(), result.getFirst().getAddress());
+        assertEquals(memberDTO.getEmail(), result.getFirst().getEmail());
+        assertEquals(memberDTO.getRole(), result.getFirst().getRole());
+        assertThat(result).hasSize(1).contains(memberDTO);
 
-        verify(memberRepository).existsById(1L);
+        verify(memberRepository).existsById(anyLong());
         verify(memberCreationMapper).toEntity(memberCreationDTO);
-        verify(memberRepository).save(member);
-        verify(memberMapper).toDto(member);
+        verify(memberRepository).save(any(Member.class));
+        verify(memberMapper).toDto(List.of(member));
 
 
     }
 
     @Test
     void deleteMember() {
-        long id = 1L;
+        doNothing().when(memberRepository).deleteById(anyLong());
+        memberService.deleteMember(1L);
 
-        doNothing().when(memberRepository).deleteById(isA(Long.class));
-        memberService.deleteMember(id);
-
-        verify(memberRepository).deleteById(id);
+        verify(memberRepository).deleteById(anyLong());
     }
 }

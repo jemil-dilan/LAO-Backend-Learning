@@ -14,5 +14,6 @@ public interface TransactionMapper {
     @Mapping(target = "bookTitle", source = "book.title")
     TransactionDTO toDTO (Transaction transaction);
 
-    List<TransactionDTO> toDTO_LIST (List<Transaction> transactions);
+    List<TransactionDTO> toDTO(List<Transaction> transactions);
+
 }

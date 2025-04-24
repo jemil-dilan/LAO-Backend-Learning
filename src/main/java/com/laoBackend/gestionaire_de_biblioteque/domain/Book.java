@@ -1,12 +1,14 @@
 package com.laoBackend.gestionaire_de_biblioteque.domain;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.Objects;
 
 @Entity
+
 public class Book {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,22 +25,17 @@ public class Book {
     private LocalDateTime updatedOn;
 
 
-
-    public Book(Long id, String title, String author, String publisher, int yearPublished, int availableCopies, int totalCopies) {
+    public Book(Long id, String title, String author, String publisher, int yearPublished, String genre, String description, int availableCopies, int totalCopies, LocalDateTime createdOn, LocalDateTime updatedOn) {
         this.id = id;
         this.title = title;
         this.author = author;
         this.publisher = publisher;
         this.yearPublished = yearPublished;
+        this.genre = genre;
+        this.description = description;
         this.availableCopies = availableCopies;
         this.totalCopies = totalCopies;
-    }
-
-    public LocalDateTime getUpdatedOn() {
-        return updatedOn;
-    }
-
-    public void setUpdatedOn(LocalDateTime updatedOn) {
+        this.createdOn = createdOn;
         this.updatedOn = updatedOn;
     }
 
@@ -57,7 +54,6 @@ public class Book {
         return title;
     }
 
-
     public void setTitle(String title) {
         this.title = title;
     }
@@ -65,6 +61,7 @@ public class Book {
     public String getAuthor() {
         return author;
     }
+
     public void setAuthor(String author) {
         this.author = author;
     }
@@ -75,6 +72,14 @@ public class Book {
 
     public void setPublisher(String publisher) {
         this.publisher = publisher;
+    }
+
+    public int getYearPublished() {
+        return yearPublished;
+    }
+
+    public void setYearPublished(int yearPublished) {
+        this.yearPublished = yearPublished;
     }
 
     public String getGenre() {
@@ -91,14 +96,6 @@ public class Book {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public int getYearPublished() {
-        return yearPublished;
-    }
-
-    public void setYearPublished(int yearPublished) {
-        this.yearPublished = yearPublished;
     }
 
     public int getAvailableCopies() {
@@ -125,15 +122,11 @@ public class Book {
         this.createdOn = createdOn;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (o == null || getClass() != o.getClass()) return false;
-        Book book = (Book) o;
-        return getYearPublished() == book.getYearPublished() && getAvailableCopies() == book.getAvailableCopies() && getTotalCopies() == book.getTotalCopies() && Objects.equals(getId(), book.getId()) && Objects.equals(getTitle(), book.getTitle()) && Objects.equals(getAuthor(), book.getAuthor()) && Objects.equals(getPublisher(), book.getPublisher()) && Objects.equals(getGenre(), book.getGenre()) && Objects.equals(getDescription(), book.getDescription()) && Objects.equals(getCreatedOn(), book.getCreatedOn()) && Objects.equals(getUpdatedOn(), book.getUpdatedOn());
+    public LocalDateTime getUpdatedOn() {
+        return updatedOn;
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(getId(), getTitle(), getAuthor(), getPublisher(), getYearPublished(), getGenre(), getDescription(), getAvailableCopies(), getTotalCopies(), getCreatedOn(), getUpdatedOn());
+    public void setUpdatedOn(LocalDateTime updatedOn) {
+        this.updatedOn = updatedOn;
     }
 }

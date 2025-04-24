@@ -4,6 +4,7 @@ import com.laoBackend.gestionaire_de_biblioteque.domain.Enum.Status;
 
 import java.time.LocalDateTime;
 
+
 public class TransactionDTO {
     private Long id;
     private String memberName;
@@ -12,6 +13,7 @@ public class TransactionDTO {
     private LocalDateTime dueDate;
     private LocalDateTime returnDate;
     private Status status;
+
 
     public TransactionDTO(Long id, String memberName, String bookTitle, LocalDateTime borrowDate, LocalDateTime dueDate, LocalDateTime returnDate, Status status) {
         this.id = id;
@@ -23,12 +25,7 @@ public class TransactionDTO {
         this.status = status;
     }
 
-    public Status getStatus() {
-        return status;
-    }
-
-    public void setStatus(Status status) {
-        this.status = status;
+    public TransactionDTO() {
     }
 
     public Long getId() {
@@ -77,5 +74,13 @@ public class TransactionDTO {
 
     public void setReturnDate(LocalDateTime returnDate) {
         this.returnDate = returnDate;
+    }
+
+    public Status getStatus() {
+        return status;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
     }
 }

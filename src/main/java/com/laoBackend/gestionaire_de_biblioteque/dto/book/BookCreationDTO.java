@@ -1,46 +1,45 @@
 package com.laoBackend.gestionaire_de_biblioteque.dto.book;
 
+
+
 public class BookCreationDTO {
-    private String bookTitle;
-    private String bookAuthor;
+    private String title;
+    private String author;
     private String publisher;
     private int yearPublished;
     private String genre;
-    private String bookDescription;
+    private String description;
     private int availableCopies;
-
     private int totalCopies;
 
-    public int getAvailableCopies() {
-        return availableCopies;
-    }
-
-    public void setAvailableCopies(int availableCopies) {
+    public BookCreationDTO(String title, String author, String publisher, int yearPublished, String genre, String description, int availableCopies, int totalCopies) {
+        this.title = title;
+        this.author = author;
+        this.publisher = publisher;
+        this.yearPublished = yearPublished;
+        this.genre = genre;
+        this.description = description;
         this.availableCopies = availableCopies;
-    }
-
-    public int getTotalCopies() {
-        return totalCopies;
-    }
-
-    public void setTotalCopies(int totalCopies) {
         this.totalCopies = totalCopies;
     }
 
-    public String getBookTitle() {
-        return bookTitle;
+    public BookCreationDTO() {
     }
 
-    public void setBookTitle(String bookTitle) {
-        this.bookTitle = bookTitle;
+    public String getTitle() {
+        return title;
     }
 
-    public String getBookAuthor() {
-        return bookAuthor;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
-    public void setBookAuthor(String bookAuthor) {
-        this.bookAuthor = bookAuthor;
+    public String getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
     }
 
     public String getPublisher() {
@@ -67,22 +66,27 @@ public class BookCreationDTO {
         this.genre = genre;
     }
 
-    public String getBookDescription() {
-        return bookDescription;
+    public String getDescription() {
+        return description;
     }
 
-    public void setBookDescription(String bookDescription) {
-        this.bookDescription = bookDescription;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
-    public BookCreationDTO(String bookTitle, String bookAuthor, String publisher, int yearPublished, String genre, String bookDescription, int availableCopies, int totalCopies) {
-        this.bookTitle = bookTitle;
-        this.bookAuthor = bookAuthor;
-        this.publisher = publisher;
-        this.yearPublished = yearPublished;
-        this.genre = genre;
-        this.bookDescription = bookDescription;
+    public int getAvailableCopies() {
+        return availableCopies;
+    }
+
+    public void setAvailableCopies(int availableCopies) {
         this.availableCopies = availableCopies;
+    }
+
+    public int getTotalCopies() {
+        return totalCopies;
+    }
+
+    public void setTotalCopies(int totalCopies) {
         this.totalCopies = totalCopies;
     }
 }

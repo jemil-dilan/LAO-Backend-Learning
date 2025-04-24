@@ -1,5 +1,9 @@
 package com.laoBackend.gestionaire_de_biblioteque.dto.book;
 
+
+
+
+
 public class BookDTO {
     private Long id;
     private String title;
@@ -10,13 +14,18 @@ public class BookDTO {
     private String description;
     private int availableCopies;
 
-
-    public int getAvailableCopies() {
-        return availableCopies;
+    public BookDTO(Long id, String title, String author, String publisher, int yearPublished, String genre, String description, int availableCopies) {
+        this.id = id;
+        this.title = title;
+        this.author = author;
+        this.publisher = publisher;
+        this.yearPublished = yearPublished;
+        this.genre = genre;
+        this.description = description;
+        this.availableCopies = availableCopies;
     }
 
-    public void setAvailableCopies(int availableCopies) {
-        this.availableCopies = availableCopies;
+    public BookDTO() {
     }
 
     public Long getId() {
@@ -75,13 +84,11 @@ public class BookDTO {
         this.description = description;
     }
 
-    public BookDTO(String title, String author, String publisher, int yearPublished, String genre, String description, int availableCopies) {
-        this.title = title;
-        this.author = author;
-        this.publisher = publisher;
-        this.yearPublished = yearPublished;
-        this.genre = genre;
-        this.description = description;
+    public int getAvailableCopies() {
+        return availableCopies;
+    }
+
+    public void setAvailableCopies(int availableCopies) {
         this.availableCopies = availableCopies;
     }
 }

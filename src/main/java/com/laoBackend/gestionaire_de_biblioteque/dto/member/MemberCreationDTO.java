@@ -1,5 +1,6 @@
 package com.laoBackend.gestionaire_de_biblioteque.dto.member;
 
+
 public class MemberCreationDTO {
     private String name;
     private String email;
@@ -11,6 +12,9 @@ public class MemberCreationDTO {
         this.email = email;
         this.address = address;
         this.role = role;
+    }
+
+    public MemberCreationDTO() {
     }
 
     public String getName() {

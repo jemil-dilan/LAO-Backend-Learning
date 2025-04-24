@@ -13,9 +13,9 @@ import java.util.List;
 
 @Service
 public class MemberService {
-    private MemberRepository memberRepository;
-    private MemberCreationMapper memberCreationMapper;
-    private MemberMapper memberMapper;
+    private final MemberRepository memberRepository;
+    private final MemberCreationMapper memberCreationMapper;
+    private final MemberMapper memberMapper;
 
     public MemberService(MemberRepository memberRepository, MemberCreationMapper memberCreationMapper, MemberMapper memberMapper) {
         this.memberRepository = memberRepository;
@@ -34,22 +34,22 @@ public class MemberService {
     }
 
     public List<MemberDTO> getAllMembers() {
-        List<Member> allMembers = memberRepository.findAll();
-        return memberMapper.toDto(allMembers);
+        return memberMapper.toDto(memberRepository.findAll());
     }
     public MemberDTO getMemberById(Long id) {
         return memberRepository.findById(id)
                 .map(memberMapper::toDto)
-                .orElse(null);
+                .orElseThrow(() -> new ResourceNotFoundException("member not found"));
     }
-    public MemberDTO updateMember(Long id, MemberCreationDTO memberCreationDTO) {
+    public void updateMember(Long id, MemberCreationDTO memberCreationDTO) {
         if (memberRepository.existsById(id)) {
             Member member = memberCreationMapper.toEntity(memberCreationDTO);
             member.setId(id);
-            Member updatedMember = memberRepository.save(member);
-            return memberMapper.toDto(updatedMember);
+            memberRepository.save(member);
+        } else {
+            throw new ResourceNotFoundException("Member not found");
         }
-        return null;
+
     }
     public void deleteMember(Long id) {
         memberRepository.deleteById(id);
