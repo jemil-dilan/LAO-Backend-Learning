@@ -17,7 +17,6 @@ import java.util.Optional;
 
 
 import static org.assertj.core.api.Assertions.*;
-import static org.assertj.core.api.Assertions.doesNotHave;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.ArgumentMatchers.anyLong;
@@ -56,7 +55,7 @@ public class TaskServiceTest {
         assertEquals(taskDTO.getStatus(), result.getFirst().getStatus());
         assertEquals(taskDTO.getPriority(), result.getFirst().getPriority());
         assertEquals(taskDTO.getCategory(), result.getFirst().getCategory());
-        assertEquals(taskDTO.getCreatedDate(), result.getFirst().getCreatedDate());
+        assertEquals(taskDTO.getCreationDate(), result.getFirst().getCreationDate());
         assertEquals(taskDTO.getDueDate(), result.getFirst().getDueDate());
     }
 
@@ -78,7 +77,7 @@ public class TaskServiceTest {
         assertEquals(taskDTO.getStatus(), result.getStatus());
         assertEquals(taskDTO.getPriority(), result.getPriority());
         assertEquals(taskDTO.getCategory(), result.getCategory());
-        assertEquals(taskDTO.getCreatedDate(), result.getCreatedDate());
+        assertEquals(taskDTO.getCreationDate(), result.getCreationDate());
         assertEquals(taskDTO.getDueDate(), result.getDueDate());
         assertThat(taskDTO).isEqualTo(result);
 
@@ -112,9 +111,40 @@ public class TaskServiceTest {
         assertEquals(taskDTO.getStatus(), result.getStatus());
         assertEquals(taskDTO.getPriority(), result.getPriority());
         assertEquals(taskDTO.getCategory(), result.getCategory());
-        assertEquals(taskDTO.getCreatedDate(), result.getCreatedDate());
+        assertEquals(taskDTO.getCreationDate(), result.getCreationDate());
         assertEquals(taskDTO.getDueDate(), result.getDueDate());
         assertThat(taskDTO).isEqualTo(result);
+
+    }
+
+    @Test
+    public void updateTaskTest(){
+        //Given
+
+        var updatedTask = taskBuilder.withTitle("boom").build();
+        var updatedTaskDTO = taskDTOBuilder.withTitle("boom").build();
+
+        //When
+        when(taskRepository.existsById(anyLong())).thenReturn(true);
+        when(taskMapper.toTask(any(TaskDTO.class))).thenReturn(updatedTask);
+        when(taskRepository.save(any(Task.class))).thenReturn(updatedTask);
+        when(taskRepository.findAll()).thenReturn(List.of(updatedTask));
+        when(taskMapper.toTaskDTO(any(Task.class))).thenReturn(updatedTaskDTO);
+        //Then
+        taskService.updateTask(updatedTaskDTO);
+        var result = taskService.getAllTasks();
+
+        assertThat(result).hasSize(1).contains(updatedTaskDTO);
+        assertEquals(updatedTaskDTO.getId(), result.getFirst().getId());
+        assertEquals(updatedTaskDTO.getTitle(), result.getFirst().getTitle());
+        assertEquals(updatedTaskDTO.getDescription(), result.getFirst().getDescription());
+        assertEquals(updatedTaskDTO.getStatus(), result.getFirst().getStatus());
+        assertEquals(updatedTaskDTO.getPriority(), result.getFirst().getPriority());
+        assertEquals(updatedTaskDTO.getCategory(), result.getFirst().getCategory());
+        assertEquals(updatedTaskDTO.getCreationDate(), result.getFirst().getCreationDate());
+        assertEquals(updatedTaskDTO.getDueDate(), result.getFirst().getDueDate());
+
+
 
     }
 }

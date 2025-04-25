@@ -12,17 +12,17 @@ public class TaskDTO {
     private String status;
     private String priority;
     private String category;
-    private LocalDateTime createdDate;
+    private LocalDateTime creationDate;
     private LocalDateTime dueDate;
 
-    public TaskDTO(Long id, String title, String description, String status, String priority, String category, LocalDateTime createdDate, LocalDateTime dueDate) {
+    public TaskDTO(Long id, String title, String description, String status, String priority, String category, LocalDateTime creationDate, LocalDateTime dueDate) {
         this.id = id;
         this.title = title;
         this.description = description;
         this.status = status;
         this.priority = priority;
         this.category = category;
-        this.createdDate = createdDate;
+        this.creationDate = creationDate;
         this.dueDate = dueDate;
     }
 
@@ -77,12 +77,12 @@ public class TaskDTO {
         this.category = category;
     }
 
-    public LocalDateTime getCreatedDate() {
-        return createdDate;
+    public LocalDateTime getCreationDate() {
+        return creationDate;
     }
 
-    public void setCreatedDate(LocalDateTime createdDate) {
-        this.createdDate = createdDate;
+    public void setCreationDate(LocalDateTime creationDate) {
+        this.creationDate = creationDate;
     }
 
     public LocalDateTime getDueDate() {

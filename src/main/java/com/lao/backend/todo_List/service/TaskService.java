@@ -33,9 +33,14 @@ public class TaskService {
         if(!taskRepository.existsById(taskDTO.getId())){
             Task task = taskRepository.save(taskMapper.toTask(taskDTO));
             return taskMapper.toTaskDTO(task);
-        } else {
-            throw new RuntimeException("task already exist");
         }
+
+        throw new RuntimeException("task already exist");
     }
 
+    public void updateTask(TaskDTO taskDTO){
+        if (taskRepository.existsById(taskDTO.getId())){
+            taskRepository.save(taskMapper.toTask(taskDTO));
+        }
+    }
 }

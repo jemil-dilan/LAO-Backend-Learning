@@ -1,8 +1,8 @@
 package com.lao.backend.todo_List.controller;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.lao.backend.todo_List.dto.TaskDTO;
 import com.lao.backend.todo_List.service.TaskService;
-import com.lao.backend.todo_List.testBuilder.TaskBuilder;
 import com.lao.backend.todo_List.testBuilder.TaskDTOBuilder;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
@@ -10,16 +10,17 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.http.MediaType;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.List;
 
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -30,11 +31,14 @@ class TaskControllerTest {
     @Autowired
     MockMvc mockMvc;
 
+    @Autowired
+    ObjectMapper objectMapper;
+
     @MockitoBean
     TaskService taskService;
 
+
     TaskDTOBuilder taskDTOBuilder = new TaskDTOBuilder();
-    TaskBuilder taskBuilder = new TaskBuilder();
 
     @Test
     public void testGetAllTasks() throws Exception {
@@ -53,7 +57,7 @@ class TaskControllerTest {
                 .andExpect(jsonPath("$[0].status").value(taskDTOList.getFirst().getStatus()))
                 .andExpect(jsonPath("$[0].priority").value(taskDTOList.getFirst().getPriority()))
                 .andExpect(jsonPath("$[0].category").value(taskDTOList.getFirst().getCategory()))
-                .andExpect(jsonPath("$[0].createdDate", Matchers.startsWith(taskDTOList.getFirst().getCreatedDate().toString())))
+                .andExpect(jsonPath("$[0].createdDate", Matchers.startsWith(taskDTOList.getFirst().getCreationDate().toString())))
                 .andExpect(jsonPath("$[0].dueDate", Matchers.startsWith(taskDTOList.getFirst().getDueDate().toString())));
     }
 
@@ -71,7 +75,7 @@ class TaskControllerTest {
                 .andExpect(jsonPath("$.status").value(taskDTO.getStatus()))
                 .andExpect(jsonPath("$.priority").value(taskDTO.getPriority()))
                 .andExpect(jsonPath("$.category").value(taskDTO.getCategory()))
-                .andExpect(jsonPath("$.createdDate", Matchers.startsWith(taskDTO.getCreatedDate().toString())))
+                .andExpect(jsonPath("$.createdDate", Matchers.startsWith(taskDTO.getCreationDate().toString())))
                 .andExpect(jsonPath("$.dueDate", Matchers.startsWith(taskDTO.getDueDate().toString())));
     }
 
@@ -87,11 +91,37 @@ class TaskControllerTest {
     @Test
     public void createTaskBTest() throws Exception {
 
-        doNothing().when(taskService).deleteTask(anyLong());
+        TaskDTO taskDTO = taskDTOBuilder.build();
 
-        mockMvc.perform(delete("/tasks/4"))
+        when(taskService.createTask(any(TaskDTO.class))).thenReturn(taskDTO);
+
+        mockMvc.perform(post("/tasks")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(taskDTO)))
+                .andExpect(status().isCreated())
+                .andExpect(jsonPath("$.id").value(taskDTO.getId()))
+                .andExpect(jsonPath("$.title").value(taskDTO.getTitle()))
+                .andExpect(jsonPath("$.description").value(taskDTO.getDescription()))
+                .andExpect(jsonPath("$.status").value(taskDTO.getStatus()))
+                .andExpect(jsonPath("$.priority").value(taskDTO.getPriority()))
+                .andExpect(jsonPath("$.category").value(taskDTO.getCategory()))
+                .andExpect(jsonPath("$.createdDate", Matchers.startsWith(taskDTO.getCreationDate().toString())))
+                .andExpect(jsonPath("$.dueDate", Matchers.startsWith(taskDTO.getDueDate().toString())));
+    }
+
+    @Test
+    public void updateTaskTest() throws Exception {
+
+        TaskDTO taskDTO = taskDTOBuilder.build();
+
+        doNothing().when(taskService).updateTask(taskDTO);
+
+        mockMvc.perform(put("/tasks/2")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(taskDTO)))
                 .andExpect(status().isNoContent());
     }
+
 
 
 }
