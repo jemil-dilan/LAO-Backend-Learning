@@ -1,5 +1,7 @@
 package com.lao.backend.todo_List.testBuilder;
 
+import com.lao.backend.todo_List.domain.Priority;
+import com.lao.backend.todo_List.domain.Status;
 import com.lao.backend.todo_List.dto.TaskDTO;
 
 import java.time.LocalDateTime;
@@ -8,11 +10,11 @@ public class TaskDTOBuilder {
     private Long id = 1L;
     private String title = "Sample Task";
     private String description = "Sample Description";
-    private String status = "TODO";
-    private String priority = "MEDIUM";
+    private Status status = Status.TODO;
+    private Priority priority = Priority.MEDIUM;
     private String category = "Sample Category";
-    private LocalDateTime creationDate = LocalDateTime.of(2025, 12, 3, 10, 55);
-    private LocalDateTime dueDate = creationDate.plusDays(5);
+    private LocalDateTime startDate = LocalDateTime.of(2025, 12, 3, 10, 55);
+    private LocalDateTime dueDate = startDate.plusDays(5);
 
     public TaskDTOBuilder withId(Long id) {
         this.id = id;
@@ -29,12 +31,12 @@ public class TaskDTOBuilder {
         return this;
     }
 
-    public TaskDTOBuilder withStatus(String status) {
+    public TaskDTOBuilder withStatus(Status status) {
         this.status = status;
         return this;
     }
 
-    public TaskDTOBuilder withPriority(String priority) {
+    public TaskDTOBuilder withPriority(Priority priority) {
         this.priority = priority;
         return this;
     }
@@ -44,8 +46,8 @@ public class TaskDTOBuilder {
         return this;
     }
 
-    public TaskDTOBuilder withCreatedDate(LocalDateTime createdDate) {
-        this.creationDate = createdDate;
+    public TaskDTOBuilder withStartDate(LocalDateTime startDate) {
+        this.startDate = startDate;
         return this;
     }
 
@@ -55,6 +57,6 @@ public class TaskDTOBuilder {
     }
 
     public TaskDTO build() {
-        return new TaskDTO(id, title, description, status, priority, category, creationDate, dueDate);
+        return new TaskDTO(id, title, description, status, priority, category, startDate, dueDate);
     }
 }

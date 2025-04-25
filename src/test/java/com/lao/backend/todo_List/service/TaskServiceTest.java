@@ -57,7 +57,7 @@ public class TaskServiceTest {
         assertEquals(taskDTO.getStatus(), result.getFirst().getStatus());
         assertEquals(taskDTO.getPriority(), result.getFirst().getPriority());
         assertEquals(taskDTO.getCategory(), result.getFirst().getCategory());
-        assertEquals(taskDTO.getCreationDate(), result.getFirst().getCreationDate());
+        assertEquals(taskDTO.getStartDate(), result.getFirst().getStartDate());
         assertEquals(taskDTO.getDueDate(), result.getFirst().getDueDate());
     }
 
@@ -79,7 +79,7 @@ public class TaskServiceTest {
         assertEquals(taskDTO.getStatus(), result.getStatus());
         assertEquals(taskDTO.getPriority(), result.getPriority());
         assertEquals(taskDTO.getCategory(), result.getCategory());
-        assertEquals(taskDTO.getCreationDate(), result.getCreationDate());
+        assertEquals(taskDTO.getStartDate(), result.getStartDate());
         assertEquals(taskDTO.getDueDate(), result.getDueDate());
         assertThat(taskDTO).isEqualTo(result);
 
@@ -113,7 +113,7 @@ public class TaskServiceTest {
         assertEquals(taskDTO.getStatus(), result.getStatus());
         assertEquals(taskDTO.getPriority(), result.getPriority());
         assertEquals(taskDTO.getCategory(), result.getCategory());
-        assertEquals(taskDTO.getCreationDate(), result.getCreationDate());
+        assertEquals(taskDTO.getStartDate(), result.getStartDate());
         assertEquals(taskDTO.getDueDate(), result.getDueDate());
         assertThat(taskDTO).isEqualTo(result);
 
@@ -143,7 +143,7 @@ public class TaskServiceTest {
         assertEquals(updatedTaskDTO.getStatus(), result.getFirst().getStatus());
         assertEquals(updatedTaskDTO.getPriority(), result.getFirst().getPriority());
         assertEquals(updatedTaskDTO.getCategory(), result.getFirst().getCategory());
-        assertEquals(updatedTaskDTO.getCreationDate(), result.getFirst().getCreationDate());
+        assertEquals(updatedTaskDTO.getStartDate(), result.getFirst().getStartDate());
         assertEquals(updatedTaskDTO.getDueDate(), result.getFirst().getDueDate());
     }
 
@@ -166,7 +166,7 @@ public class TaskServiceTest {
         assertEquals(taskDTO.getStatus(), result.getFirst().getStatus());
         assertEquals(taskDTO.getPriority(), result.getFirst().getPriority());
         assertEquals(taskDTO.getCategory(), result.getFirst().getCategory());
-        assertEquals(taskDTO.getCreationDate(), result.getFirst().getCreationDate());
+        assertEquals(taskDTO.getStartDate(), result.getFirst().getStartDate());
         assertEquals(taskDTO.getDueDate(), result.getFirst().getDueDate());
 
     }
@@ -190,7 +190,7 @@ public class TaskServiceTest {
         assertEquals(taskDTO.getStatus(), result.getFirst().getStatus());
         assertEquals(taskDTO.getPriority(), result.getFirst().getPriority());
         assertEquals(taskDTO.getCategory(), result.getFirst().getCategory());
-        assertEquals(taskDTO.getCreationDate(), result.getFirst().getCreationDate());
+        assertEquals(taskDTO.getStartDate(), result.getFirst().getStartDate());
         assertEquals(taskDTO.getDueDate(), result.getFirst().getDueDate());
 
     }

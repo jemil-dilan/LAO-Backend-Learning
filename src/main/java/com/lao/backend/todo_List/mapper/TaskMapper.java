@@ -10,6 +10,7 @@ public interface TaskMapper {
 
     TaskDTO toTaskDTO(Task task);
 
+    @Mapping(target = "creationDate", ignore = true)
     @Mapping(target = "updatedDate", ignore = true)
     Task toTask(TaskDTO taskDTO);
 }

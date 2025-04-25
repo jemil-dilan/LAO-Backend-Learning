@@ -45,7 +45,7 @@ class TaskControllerTest {
     public void getAllTasksTest() throws Exception {
         List<TaskDTO> taskDTOList = List.of(taskDTOBuilder.build(), taskDTOBuilder.
                 withTitle("ddcq").withCategory("scqsc").withDescription("qscsqcscs")
-                .withId(2L).withStatus("IN_PROGRESS").build());
+                .withId(2L).withStatus(Status.IN_PROGRESS).build());
 
         when(taskService.getAllTasks()).thenReturn(taskDTOList);
 
@@ -55,10 +55,10 @@ class TaskControllerTest {
                 .andExpect(jsonPath("$[0].id").value(taskDTOList.getFirst().getId()))
                 .andExpect(jsonPath("$[0].title").value(taskDTOList.getFirst().getTitle()))
                 .andExpect(jsonPath("$[0].description").value(taskDTOList.getFirst().getDescription()))
-                .andExpect(jsonPath("$[0].status").value(taskDTOList.getFirst().getStatus()))
-                .andExpect(jsonPath("$[0].priority").value(taskDTOList.getFirst().getPriority()))
+                .andExpect(jsonPath("$[0].status").value(taskDTOList.getFirst().getStatus().toString()))
+                .andExpect(jsonPath("$[0].priority").value(taskDTOList.getFirst().getPriority().toString()))
                 .andExpect(jsonPath("$[0].category").value(taskDTOList.getFirst().getCategory()))
-                .andExpect(jsonPath("$[0].createdDate", Matchers.startsWith(taskDTOList.getFirst().getCreationDate().toString())))
+                .andExpect(jsonPath("$[0].startDate", Matchers.startsWith(taskDTOList.getFirst().getStartDate().toString())))
                 .andExpect(jsonPath("$[0].dueDate", Matchers.startsWith(taskDTOList.getFirst().getDueDate().toString())));
     }
 
@@ -73,10 +73,10 @@ class TaskControllerTest {
                 .andExpect(jsonPath("$.id").value(taskDTO.getId()))
                 .andExpect(jsonPath("$.title").value(taskDTO.getTitle()))
                 .andExpect(jsonPath("$.description").value(taskDTO.getDescription()))
-                .andExpect(jsonPath("$.status").value(taskDTO.getStatus()))
-                .andExpect(jsonPath("$.priority").value(taskDTO.getPriority()))
+                .andExpect(jsonPath("$.status").value(taskDTO.getStatus().toString()))
+                .andExpect(jsonPath("$.priority").value(taskDTO.getPriority().toString()))
                 .andExpect(jsonPath("$.category").value(taskDTO.getCategory()))
-                .andExpect(jsonPath("$.createdDate", Matchers.startsWith(taskDTO.getCreationDate().toString())))
+                .andExpect(jsonPath("$.startDate", Matchers.startsWith(taskDTO.getStartDate().toString())))
                 .andExpect(jsonPath("$.dueDate", Matchers.startsWith(taskDTO.getDueDate().toString())));
     }
 
@@ -103,10 +103,10 @@ class TaskControllerTest {
                 .andExpect(jsonPath("$.id").value(taskDTO.getId()))
                 .andExpect(jsonPath("$.title").value(taskDTO.getTitle()))
                 .andExpect(jsonPath("$.description").value(taskDTO.getDescription()))
-                .andExpect(jsonPath("$.status").value(taskDTO.getStatus()))
-                .andExpect(jsonPath("$.priority").value(taskDTO.getPriority()))
+                .andExpect(jsonPath("$.status").value(taskDTO.getStatus().toString()))
+                .andExpect(jsonPath("$.priority").value(taskDTO.getPriority().toString()))
                 .andExpect(jsonPath("$.category").value(taskDTO.getCategory()))
-                .andExpect(jsonPath("$.createdDate", Matchers.startsWith(taskDTO.getCreationDate().toString())))
+                .andExpect(jsonPath("$.startDate", Matchers.startsWith(taskDTO.getStartDate().toString())))
                 .andExpect(jsonPath("$.dueDate", Matchers.startsWith(taskDTO.getDueDate().toString())));
     }
 
@@ -137,10 +137,10 @@ class TaskControllerTest {
                 .andExpect(jsonPath("$[0].id").value(taskDTOList.getFirst().getId()))
                 .andExpect(jsonPath("$[0].title").value(taskDTOList.getFirst().getTitle()))
                 .andExpect(jsonPath("$[0].description").value(taskDTOList.getFirst().getDescription()))
-                .andExpect(jsonPath("$[0].status").value(taskDTOList.getFirst().getStatus()))
-                .andExpect(jsonPath("$[0].priority").value(taskDTOList.getFirst().getPriority()))
+                .andExpect(jsonPath("$[0].status").value(taskDTOList.getFirst().getStatus().toString()))
+                .andExpect(jsonPath("$[0].priority").value(taskDTOList.getFirst().getPriority().toString()))
                 .andExpect(jsonPath("$[0].category").value(taskDTOList.getFirst().getCategory()))
-                .andExpect(jsonPath("$[0].creationDate", Matchers.startsWith(taskDTOList.getFirst().getCreationDate().toString())))
+                .andExpect(jsonPath("$[0].startDate", Matchers.startsWith(taskDTOList.getFirst().getStartDate().toString())))
                 .andExpect(jsonPath("$[0].dueDate", Matchers.startsWith(taskDTOList.getFirst().getDueDate().toString())));
     }
 
@@ -158,10 +158,10 @@ class TaskControllerTest {
                 .andExpect(jsonPath("$[0].id").value(taskDTOList.getFirst().getId()))
                 .andExpect(jsonPath("$[0].title").value(taskDTOList.getFirst().getTitle()))
                 .andExpect(jsonPath("$[0].description").value(taskDTOList.getFirst().getDescription()))
-                .andExpect(jsonPath("$[0].status").value(taskDTOList.getFirst().getStatus()))
-                .andExpect(jsonPath("$[0].priority").value(taskDTOList.getFirst().getPriority()))
+                .andExpect(jsonPath("$[0].status").value(taskDTOList.getFirst().getStatus().toString()))
+                .andExpect(jsonPath("$[0].priority").value(taskDTOList.getFirst().getPriority().toString()))
                 .andExpect(jsonPath("$[0].category").value(taskDTOList.getFirst().getCategory()))
-                .andExpect(jsonPath("$[0].creationDate", Matchers.startsWith(taskDTOList.getFirst().getCreationDate().toString())))
+                .andExpect(jsonPath("$[0].startDate", Matchers.startsWith(taskDTOList.getFirst().getStartDate().toString())))
                 .andExpect(jsonPath("$[0].dueDate", Matchers.startsWith(taskDTOList.getFirst().getDueDate().toString())));
     }
 }

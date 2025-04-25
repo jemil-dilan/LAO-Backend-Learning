@@ -8,6 +8,7 @@ import com.lao.backend.todo_List.mapper.TaskMapper;
 import com.lao.backend.todo_List.repository.TaskRepository;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -33,8 +34,9 @@ public class TaskService {
 
     public TaskDTO createTask(TaskDTO taskDTO) {
         if(!taskRepository.existsById(taskDTO.getId())){
-            Task task = taskRepository.save(taskMapper.toTask(taskDTO));
-            return taskMapper.toTaskDTO(task);
+            Task task = taskMapper.toTask(taskDTO);
+            task.setCreationDate(LocalDateTime.now());
+            return taskMapper.toTaskDTO(taskRepository.save(task));
         }
 
         throw new RuntimeException("task already exist");
@@ -42,7 +44,9 @@ public class TaskService {
 
     public void updateTask(TaskDTO taskDTO){
         if (taskRepository.existsById(taskDTO.getId())){
-            taskRepository.save(taskMapper.toTask(taskDTO));
+            Task task = taskMapper.toTask(taskDTO);
+            task.setUpdatedDate(LocalDateTime.now());
+            taskRepository.save(task);
         }
     }
 

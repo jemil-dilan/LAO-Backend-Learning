@@ -1,6 +1,9 @@
 package com.lao.backend.todo_List.dto;
 
 
+import com.lao.backend.todo_List.domain.Priority;
+import com.lao.backend.todo_List.domain.Status;
+
 import java.time.LocalDateTime;
 
 
@@ -9,20 +12,20 @@ public class TaskDTO {
     private Long id;
     private String title;
     private String description;
-    private String status;
-    private String priority;
+    private Status status;
+    private Priority priority;
     private String category;
-    private LocalDateTime creationDate;
+    private LocalDateTime startDate;
     private LocalDateTime dueDate;
 
-    public TaskDTO(Long id, String title, String description, String status, String priority, String category, LocalDateTime creationDate, LocalDateTime dueDate) {
+    public TaskDTO(Long id, String title, String description, Status status, Priority priority, String category, LocalDateTime startDate, LocalDateTime dueDate) {
         this.id = id;
         this.title = title;
         this.description = description;
         this.status = status;
         this.priority = priority;
         this.category = category;
-        this.creationDate = creationDate;
+        this.startDate = startDate;
         this.dueDate = dueDate;
     }
 
@@ -53,19 +56,19 @@ public class TaskDTO {
         this.description = description;
     }
 
-    public String getStatus() {
+    public Status getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(Status status) {
         this.status = status;
     }
 
-    public String getPriority() {
+    public Priority getPriority() {
         return priority;
     }
 
-    public void setPriority(String priority) {
+    public void setPriority(Priority priority) {
         this.priority = priority;
     }
 
@@ -77,12 +80,12 @@ public class TaskDTO {
         this.category = category;
     }
 
-    public LocalDateTime getCreationDate() {
-        return creationDate;
+    public LocalDateTime getStartDate() {
+        return startDate;
     }
 
-    public void setCreationDate(LocalDateTime creationDate) {
-        this.creationDate = creationDate;
+    public void setStartDate(LocalDateTime startDate) {
+        this.startDate = startDate;
     }
 
     public LocalDateTime getDueDate() {

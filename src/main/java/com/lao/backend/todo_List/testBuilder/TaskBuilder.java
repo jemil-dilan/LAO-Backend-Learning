@@ -13,9 +13,10 @@ public class TaskBuilder {
     private Status status = Status.TODO;
     private Priority priority = Priority.MEDIUM;
     private String category = "Sample Category";
-    private LocalDateTime createdDate = LocalDateTime.of(2025,12,3,10,55);
+    private LocalDateTime creationDate = LocalDateTime.of(2025,12,3,10,55);
 
-    private LocalDateTime dueDate = createdDate.plusDays(5);
+    private LocalDateTime startDate =LocalDateTime.of(2025,12,3,10,55);
+    private LocalDateTime dueDate = startDate.plusDays(5);
     private LocalDateTime updatedDate = null;
 
     public TaskBuilder withId(Long id){
@@ -47,7 +48,11 @@ public class TaskBuilder {
         return this;
     }
     public TaskBuilder withCreatedDate(LocalDateTime createdDate){
-        this.createdDate= createdDate;
+        this.creationDate = createdDate;
+        return this;
+    }
+    public TaskBuilder withStartDateDate(LocalDateTime StartDate){
+        this.startDate= startDate;
         return this;
     }
     public TaskBuilder withDueDate(LocalDateTime dueDate){
@@ -59,6 +64,6 @@ public class TaskBuilder {
         return this;
     }
     public Task build(){
-        return new Task(id,title,description,status,priority,category,createdDate,dueDate,updatedDate);
+        return new Task(id,title,description,status,priority,category, creationDate,startDate,dueDate,updatedDate);
     }
 }
