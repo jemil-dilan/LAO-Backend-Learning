@@ -3,10 +3,13 @@ package com.lao.backend.todo_List.service;
 import com.lao.backend.todo_List.domain.Priority;
 import com.lao.backend.todo_List.domain.Status;
 import com.lao.backend.todo_List.domain.Task;
+import com.lao.backend.todo_List.dto.TaskCreationDTO;
 import com.lao.backend.todo_List.dto.TaskDTO;
+import com.lao.backend.todo_List.mapper.TaskCreationMapper;
 import com.lao.backend.todo_List.mapper.TaskMapper;
 import com.lao.backend.todo_List.repository.TaskRepository;
 import com.lao.backend.todo_List.testBuilder.TaskBuilder;
+import com.lao.backend.todo_List.testBuilder.TaskCreationBuilder;
 import com.lao.backend.todo_List.testBuilder.TaskDTOBuilder;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -31,11 +34,15 @@ public class TaskServiceTest {
     @Mock
     TaskMapper taskMapper;
 
+    @Mock
+    TaskCreationMapper taskCreationMapper;
     @InjectMocks
     TaskService taskService;
 
     TaskBuilder taskBuilder = new TaskBuilder();
     TaskDTOBuilder taskDTOBuilder = new TaskDTOBuilder();
+
+    TaskCreationBuilder taskCreationBuilder = new TaskCreationBuilder();
 
     @Test
     public void testGetAllTasks() {
@@ -59,6 +66,9 @@ public class TaskServiceTest {
         assertEquals(taskDTO.getCategory(), result.getFirst().getCategory());
         assertEquals(taskDTO.getStartDate(), result.getFirst().getStartDate());
         assertEquals(taskDTO.getDueDate(), result.getFirst().getDueDate());
+
+        verify(taskRepository).findAll();
+        verify(taskMapper).toTaskDTO(any(Task.class));
     }
 
     @Test
@@ -83,6 +93,8 @@ public class TaskServiceTest {
         assertEquals(taskDTO.getDueDate(), result.getDueDate());
         assertThat(taskDTO).isEqualTo(result);
 
+        verify(taskRepository).findById(anyLong());
+        verify(taskMapper).toTaskDTO(any(Task.class));
     }
 
     @Test
@@ -98,14 +110,15 @@ public class TaskServiceTest {
         //Given
         var task = taskBuilder.build();
         var taskDTO = taskDTOBuilder.build();
+        var taskCreation = taskCreationBuilder.build();
 
         //When
-        when(taskRepository.existsById(anyLong())).thenReturn(false);
-        when(taskMapper.toTask(any(TaskDTO.class))).thenReturn(task);
+        when(taskRepository.existsByTitle(anyString())).thenReturn(false);
+        when(taskCreationMapper.toTask(any(TaskCreationDTO.class))).thenReturn(task);
         when(taskRepository.save(any(Task.class))).thenReturn(task);
         when(taskMapper.toTaskDTO(any(Task.class))).thenReturn(taskDTO);
         //Then
-        var result = taskService.createTask(taskDTO);
+        var result = taskService.createTask(taskCreation);
 
         assertEquals(taskDTO.getId(), result.getId());
         assertEquals(taskDTO.getTitle(), result.getTitle());
@@ -117,23 +130,28 @@ public class TaskServiceTest {
         assertEquals(taskDTO.getDueDate(), result.getDueDate());
         assertThat(taskDTO).isEqualTo(result);
 
+        verify(taskRepository).existsByTitle(anyString());
+        verify(taskCreationMapper).toTask(any(TaskCreationDTO.class));
+        verify(taskRepository).save(any(Task.class));
+        verify(taskMapper).toTaskDTO(any(Task.class));
+
     }
 
     @Test
     public void updateTaskTest(){
         //Given
-
+        var updatedTaskCreation = taskCreationBuilder.withTitle("boom").build();
         var updatedTask = taskBuilder.withTitle("boom").build();
         var updatedTaskDTO = taskDTOBuilder.withTitle("boom").build();
 
         //When
         when(taskRepository.existsById(anyLong())).thenReturn(true);
-        when(taskMapper.toTask(any(TaskDTO.class))).thenReturn(updatedTask);
+        when(taskCreationMapper.toTask(any(TaskCreationDTO.class))).thenReturn(updatedTask);
         when(taskRepository.save(any(Task.class))).thenReturn(updatedTask);
         when(taskRepository.findAll()).thenReturn(List.of(updatedTask));
         when(taskMapper.toTaskDTO(any(Task.class))).thenReturn(updatedTaskDTO);
         //Then
-        taskService.updateTask(updatedTaskDTO);
+        taskService.updateTask(1L, updatedTaskCreation);
         var result = taskService.getAllTasks();
 
         assertThat(result).hasSize(1).contains(updatedTaskDTO);
@@ -145,6 +163,13 @@ public class TaskServiceTest {
         assertEquals(updatedTaskDTO.getCategory(), result.getFirst().getCategory());
         assertEquals(updatedTaskDTO.getStartDate(), result.getFirst().getStartDate());
         assertEquals(updatedTaskDTO.getDueDate(), result.getFirst().getDueDate());
+
+        verify(taskRepository).existsById(anyLong());
+        verify(taskCreationMapper).toTask(any(TaskCreationDTO.class));
+        verify(taskRepository).save(any(Task.class));
+        verify(taskMapper).toTaskDTO(any(Task.class));
+        verify(taskRepository).findAll();
+        verify(taskMapper).toTaskDTO(any(Task.class));
     }
 
     @Test
@@ -169,6 +194,9 @@ public class TaskServiceTest {
         assertEquals(taskDTO.getStartDate(), result.getFirst().getStartDate());
         assertEquals(taskDTO.getDueDate(), result.getFirst().getDueDate());
 
+        verify(taskRepository).findAllByStatus(any(Status.class));
+        verify(taskMapper).toTaskDTO(any(Task.class));
+
     }
 
     @Test
@@ -192,6 +220,9 @@ public class TaskServiceTest {
         assertEquals(taskDTO.getCategory(), result.getFirst().getCategory());
         assertEquals(taskDTO.getStartDate(), result.getFirst().getStartDate());
         assertEquals(taskDTO.getDueDate(), result.getFirst().getDueDate());
+
+        verify(taskRepository).findAllByPriority((any(Priority.class)));
+        verify(taskMapper).toTaskDTO(any(Task.class));
 
     }
 }

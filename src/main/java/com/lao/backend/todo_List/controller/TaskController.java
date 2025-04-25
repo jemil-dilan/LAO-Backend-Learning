@@ -2,6 +2,7 @@ package com.lao.backend.todo_List.controller;
 
 import com.lao.backend.todo_List.domain.Priority;
 import com.lao.backend.todo_List.domain.Status;
+import com.lao.backend.todo_List.dto.TaskCreationDTO;
 import com.lao.backend.todo_List.dto.TaskDTO;
 import com.lao.backend.todo_List.service.TaskService;
 import org.springframework.http.HttpStatus;
@@ -35,13 +36,13 @@ public class TaskController {
     }
 
     @PostMapping
-    public ResponseEntity<TaskDTO> createTask(@RequestBody TaskDTO taskDTO){
-        return ResponseEntity.status(HttpStatus.CREATED).body(taskService.createTask(taskDTO));
+    public ResponseEntity<TaskDTO> createTask(@RequestBody TaskCreationDTO taskCreationDTO){
+        return ResponseEntity.status(HttpStatus.CREATED).body(taskService.createTask(taskCreationDTO));
     }
 
     @PutMapping("/{taskId}")
-    public ResponseEntity<Void> updateTask(@RequestBody TaskDTO taskDTO, @PathVariable Long taskId){
-        taskService.updateTask(taskDTO);
+    public ResponseEntity<Void> updateTask(@RequestBody TaskCreationDTO taskCreationDTO, @PathVariable Long taskId){
+        taskService.updateTask(taskId, taskCreationDTO);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
