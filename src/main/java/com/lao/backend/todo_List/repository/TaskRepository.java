@@ -1,7 +1,7 @@
 package com.lao.backend.todo_List.repository;
 
-import com.lao.backend.todo_List.domain.Priority;
-import com.lao.backend.todo_List.domain.Status;
+import com.lao.backend.todo_List.domain.enums.Priority;
+import com.lao.backend.todo_List.domain.enums.Status;
 import com.lao.backend.todo_List.domain.Task;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;

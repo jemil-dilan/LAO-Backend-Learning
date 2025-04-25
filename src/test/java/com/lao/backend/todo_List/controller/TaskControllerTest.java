@@ -1,15 +1,14 @@
 package com.lao.backend.todo_List.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.lao.backend.todo_List.domain.Priority;
-import com.lao.backend.todo_List.domain.Status;
+import com.lao.backend.todo_List.domain.enums.Priority;
+import com.lao.backend.todo_List.domain.enums.Status;
 import com.lao.backend.todo_List.dto.TaskCreationDTO;
 import com.lao.backend.todo_List.dto.TaskDTO;
 import com.lao.backend.todo_List.service.TaskService;
 import com.lao.backend.todo_List.testBuilder.TaskCreationBuilder;
 import com.lao.backend.todo_List.testBuilder.TaskDTOBuilder;
 import org.hamcrest.Matchers;
-import org.hibernate.Transaction;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;

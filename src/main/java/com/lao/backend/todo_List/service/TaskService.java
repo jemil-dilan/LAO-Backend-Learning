@@ -1,14 +1,13 @@
 package com.lao.backend.todo_List.service;
 
-import com.lao.backend.todo_List.domain.Priority;
-import com.lao.backend.todo_List.domain.Status;
+import com.lao.backend.todo_List.domain.enums.Priority;
+import com.lao.backend.todo_List.domain.enums.Status;
 import com.lao.backend.todo_List.domain.Task;
 import com.lao.backend.todo_List.dto.TaskCreationDTO;
 import com.lao.backend.todo_List.dto.TaskDTO;
 import com.lao.backend.todo_List.mapper.TaskCreationMapper;
 import com.lao.backend.todo_List.mapper.TaskMapper;
 import com.lao.backend.todo_List.repository.TaskRepository;
-import org.springframework.cglib.core.Local;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;

@@ -1,4 +1,4 @@
-package com.lao.backend.todo_List.domain;
+package com.lao.backend.todo_List.domain.enums;
 
 public enum Priority {
     LOW,

@@ -1,7 +1,6 @@
 package com.lao.backend.todo_List.dto;
 
-import com.lao.backend.todo_List.domain.Priority;
-import com.lao.backend.todo_List.domain.Status;
+import com.lao.backend.todo_List.domain.enums.Priority;
 
 import java.time.LocalDateTime;
 

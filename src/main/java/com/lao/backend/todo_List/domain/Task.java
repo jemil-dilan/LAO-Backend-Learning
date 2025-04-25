@@ -1,4 +1,6 @@
 package com.lao.backend.todo_List.domain;
+import com.lao.backend.todo_List.domain.enums.Priority;
+import com.lao.backend.todo_List.domain.enums.Status;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
