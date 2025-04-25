@@ -1,10 +1,7 @@
 package com.lao.backend.todo_List.domain;
 import com.lao.backend.todo_List.domain.enums.Priority;
 import com.lao.backend.todo_List.domain.enums.Status;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 
 import java.time.LocalDateTime;
@@ -17,7 +14,9 @@ public class Task {
     private Long id;
     private String title;
     private String description;
+    @Enumerated(EnumType.STRING)
     private Status status;
+    @Enumerated(EnumType.STRING)
     private Priority priority;
     private String category;
     private LocalDateTime creationDate;
