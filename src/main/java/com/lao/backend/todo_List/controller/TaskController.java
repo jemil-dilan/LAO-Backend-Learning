@@ -1,5 +1,7 @@
 package com.lao.backend.todo_List.controller;
 
+import com.lao.backend.todo_List.domain.Priority;
+import com.lao.backend.todo_List.domain.Status;
 import com.lao.backend.todo_List.dto.TaskDTO;
 import com.lao.backend.todo_List.service.TaskService;
 import org.springframework.http.HttpStatus;
@@ -42,4 +44,17 @@ public class TaskController {
         taskService.updateTask(taskDTO);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
+
+    @GetMapping("/status/{taskStatus}")
+    public ResponseEntity<List<TaskDTO>> getTaskByStatus(@PathVariable String taskStatus){
+        Status status = Status.valueOf(taskStatus.toUpperCase());
+        return ResponseEntity.ok(taskService.getTaskByStatus(status));
+    }
+
+    @GetMapping("/priority/{taskPriority}")
+    public ResponseEntity<List<TaskDTO>> getTaskByPriority(@PathVariable String taskPriority){
+        Priority priority = Priority.valueOf(taskPriority.toUpperCase());
+        return ResponseEntity.ok(taskService.getTaskByPriority(priority));
+    }
+
 }

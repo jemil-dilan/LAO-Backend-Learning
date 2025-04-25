@@ -1,5 +1,7 @@
 package com.lao.backend.todo_List.service;
 
+import com.lao.backend.todo_List.domain.Priority;
+import com.lao.backend.todo_List.domain.Status;
 import com.lao.backend.todo_List.domain.Task;
 import com.lao.backend.todo_List.dto.TaskDTO;
 import com.lao.backend.todo_List.mapper.TaskMapper;
@@ -42,5 +44,13 @@ public class TaskService {
         if (taskRepository.existsById(taskDTO.getId())){
             taskRepository.save(taskMapper.toTask(taskDTO));
         }
+    }
+
+    public List<TaskDTO> getTaskByStatus(Status status) {
+        return taskRepository.findAllByStatus(status).stream().map(taskMapper::toTaskDTO).toList();
+    }
+
+    public List<TaskDTO> getTaskByPriority(Priority priority) {
+        return taskRepository.findAllByPriority(priority).stream().map(taskMapper::toTaskDTO).toList();
     }
 }

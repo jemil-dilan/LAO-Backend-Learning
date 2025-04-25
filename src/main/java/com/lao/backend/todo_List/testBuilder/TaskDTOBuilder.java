@@ -11,8 +11,8 @@ public class TaskDTOBuilder {
     private String status = "TODO";
     private String priority = "MEDIUM";
     private String category = "Sample Category";
-    private LocalDateTime createdDate = LocalDateTime.of(2025, 12, 3, 10, 55);
-    private LocalDateTime dueDate = createdDate.plusDays(5);
+    private LocalDateTime creationDate = LocalDateTime.of(2025, 12, 3, 10, 55);
+    private LocalDateTime dueDate = creationDate.plusDays(5);
 
     public TaskDTOBuilder withId(Long id) {
         this.id = id;
@@ -45,7 +45,7 @@ public class TaskDTOBuilder {
     }
 
     public TaskDTOBuilder withCreatedDate(LocalDateTime createdDate) {
-        this.createdDate = createdDate;
+        this.creationDate = createdDate;
         return this;
     }
 
@@ -55,6 +55,6 @@ public class TaskDTOBuilder {
     }
 
     public TaskDTO build() {
-        return new TaskDTO(id, title, description, status, priority, category, createdDate, dueDate);
+        return new TaskDTO(id, title, description, status, priority, category, creationDate, dueDate);
     }
 }

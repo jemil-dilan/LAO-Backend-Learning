@@ -18,18 +18,18 @@ public class Task {
     private Status status;
     private Priority priority;
     private String category;
-    private LocalDateTime createdDate;
+    private LocalDateTime creationDate;
     private LocalDateTime dueDate;
     private LocalDateTime updatedDate;
 
-    public Task(Long id, String title, String description, Status status, Priority priority, String category, LocalDateTime createdDate, LocalDateTime dueDate, LocalDateTime updatedDate) {
+    public Task(Long id, String title, String description, Status status, Priority priority, String category, LocalDateTime creationDate, LocalDateTime dueDate, LocalDateTime updatedDate) {
         this.id = id;
         this.title = title;
         this.description = description;
         this.status = status;
         this.priority = priority;
         this.category = category;
-        this.createdDate = createdDate;
+        this.creationDate = creationDate;
         this.dueDate = dueDate;
         this.updatedDate = updatedDate;
     }
@@ -85,12 +85,12 @@ public class Task {
         this.category = category;
     }
 
-    public LocalDateTime getCreatedDate() {
-        return createdDate;
+    public LocalDateTime getCreationDate() {
+        return creationDate;
     }
 
-    public void setCreatedDate(LocalDateTime createdDate) {
-        this.createdDate = createdDate;
+    public void setCreationDate(LocalDateTime createdDate) {
+        this.creationDate = createdDate;
     }
 
     public LocalDateTime getDueDate() {

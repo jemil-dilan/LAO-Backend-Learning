@@ -1,5 +1,7 @@
 package com.lao.backend.todo_List.service;
 
+import com.lao.backend.todo_List.domain.Priority;
+import com.lao.backend.todo_List.domain.Status;
 import com.lao.backend.todo_List.domain.Task;
 import com.lao.backend.todo_List.dto.TaskDTO;
 import com.lao.backend.todo_List.mapper.TaskMapper;
@@ -143,8 +145,55 @@ public class TaskServiceTest {
         assertEquals(updatedTaskDTO.getCategory(), result.getFirst().getCategory());
         assertEquals(updatedTaskDTO.getCreationDate(), result.getFirst().getCreationDate());
         assertEquals(updatedTaskDTO.getDueDate(), result.getFirst().getDueDate());
+    }
 
+    @Test
+    public void testGetTaskByStatus(){
+        //Given
+        var task = taskBuilder.build();
+        var taskDTO = taskDTOBuilder.build();
 
+        //When
+        when(taskRepository.findAllByStatus(any(Status.class))).thenReturn(List.of(task));
+        when(taskMapper.toTaskDTO(any(Task.class))).thenReturn(taskDTO);
+        //Then
+        var result = taskService.getTaskByStatus(Status.DONE);
+
+        assertThat(result).hasSize(1).contains(taskDTO);
+        assertEquals(taskDTO.getId(), result.getFirst().getId());
+        assertEquals(taskDTO.getTitle(), result.getFirst().getTitle());
+        assertEquals(taskDTO.getDescription(), result.getFirst().getDescription());
+        assertEquals(taskDTO.getStatus(), result.getFirst().getStatus());
+        assertEquals(taskDTO.getPriority(), result.getFirst().getPriority());
+        assertEquals(taskDTO.getCategory(), result.getFirst().getCategory());
+        assertEquals(taskDTO.getCreationDate(), result.getFirst().getCreationDate());
+        assertEquals(taskDTO.getDueDate(), result.getFirst().getDueDate());
+
+    }
+
+    @Test
+    public void testGetTaskByPriority(){
+        //Given
+        var task = taskBuilder.build();
+        var taskDTO = taskDTOBuilder.build();
+
+        //When
+        when(taskRepository.findAllByPriority((any(Priority.class)))).thenReturn(List.of(task));
+        when(taskMapper.toTaskDTO(any(Task.class))).thenReturn(taskDTO);
+        //Then
+        var result = taskService.getTaskByPriority(Priority.LOW);
+
+        assertThat(result).hasSize(1).contains(taskDTO);
+        assertEquals(taskDTO.getId(), result.getFirst().getId());
+        assertEquals(taskDTO.getTitle(), result.getFirst().getTitle());
+        assertEquals(taskDTO.getDescription(), result.getFirst().getDescription());
+        assertEquals(taskDTO.getStatus(), result.getFirst().getStatus());
+        assertEquals(taskDTO.getPriority(), result.getFirst().getPriority());
+        assertEquals(taskDTO.getCategory(), result.getFirst().getCategory());
+        assertEquals(taskDTO.getCreationDate(), result.getFirst().getCreationDate());
+        assertEquals(taskDTO.getDueDate(), result.getFirst().getDueDate());
 
     }
 }
+
+

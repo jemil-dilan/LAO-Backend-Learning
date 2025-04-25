@@ -1,6 +1,8 @@
 package com.lao.backend.todo_List.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.lao.backend.todo_List.domain.Priority;
+import com.lao.backend.todo_List.domain.Status;
 import com.lao.backend.todo_List.dto.TaskDTO;
 import com.lao.backend.todo_List.service.TaskService;
 import com.lao.backend.todo_List.testBuilder.TaskDTOBuilder;
@@ -16,8 +18,7 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.List;
 
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyLong;
+import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -41,7 +42,7 @@ class TaskControllerTest {
     TaskDTOBuilder taskDTOBuilder = new TaskDTOBuilder();
 
     @Test
-    public void testGetAllTasks() throws Exception {
+    public void getAllTasksTest() throws Exception {
         List<TaskDTO> taskDTOList = List.of(taskDTOBuilder.build(), taskDTOBuilder.
                 withTitle("ddcq").withCategory("scqsc").withDescription("qscsqcscs")
                 .withId(2L).withStatus("IN_PROGRESS").build());
@@ -62,7 +63,7 @@ class TaskControllerTest {
     }
 
     @Test
-    public void GetTaskByIdTest() throws Exception {
+    public void getTaskByIdTest() throws Exception {
         var taskDTO = taskDTOBuilder.build();
 
         when(taskService.getTaskById(anyLong())).thenReturn(taskDTO);
@@ -122,6 +123,45 @@ class TaskControllerTest {
                 .andExpect(status().isNoContent());
     }
 
+    @Test
+    public void getTaskByStatusTest() throws Exception {
+        List<TaskDTO> taskDTOList = List.of(taskDTOBuilder.build());
+        String status = "TODO";
 
+        Status taskStatus = Status.valueOf(status.toUpperCase());
+        when(taskService.getTaskByStatus(taskStatus)).thenReturn(taskDTOList);
 
+        mockMvc.perform(get("/tasks/status/TODO"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.size()").value(1))
+                .andExpect(jsonPath("$[0].id").value(taskDTOList.getFirst().getId()))
+                .andExpect(jsonPath("$[0].title").value(taskDTOList.getFirst().getTitle()))
+                .andExpect(jsonPath("$[0].description").value(taskDTOList.getFirst().getDescription()))
+                .andExpect(jsonPath("$[0].status").value(taskDTOList.getFirst().getStatus()))
+                .andExpect(jsonPath("$[0].priority").value(taskDTOList.getFirst().getPriority()))
+                .andExpect(jsonPath("$[0].category").value(taskDTOList.getFirst().getCategory()))
+                .andExpect(jsonPath("$[0].creationDate", Matchers.startsWith(taskDTOList.getFirst().getCreationDate().toString())))
+                .andExpect(jsonPath("$[0].dueDate", Matchers.startsWith(taskDTOList.getFirst().getDueDate().toString())));
+    }
+
+    @Test
+    public void getTaskByPriorityTest() throws Exception {
+        List<TaskDTO> taskDTOList = List.of(taskDTOBuilder.build());
+        String priority = "low";
+
+        Priority taskPriority = Priority.valueOf(priority.toUpperCase());
+        when(taskService.getTaskByPriority(taskPriority)).thenReturn(taskDTOList);
+
+        mockMvc.perform(get("/tasks/priority/low"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.size()").value(1))
+                .andExpect(jsonPath("$[0].id").value(taskDTOList.getFirst().getId()))
+                .andExpect(jsonPath("$[0].title").value(taskDTOList.getFirst().getTitle()))
+                .andExpect(jsonPath("$[0].description").value(taskDTOList.getFirst().getDescription()))
+                .andExpect(jsonPath("$[0].status").value(taskDTOList.getFirst().getStatus()))
+                .andExpect(jsonPath("$[0].priority").value(taskDTOList.getFirst().getPriority()))
+                .andExpect(jsonPath("$[0].category").value(taskDTOList.getFirst().getCategory()))
+                .andExpect(jsonPath("$[0].creationDate", Matchers.startsWith(taskDTOList.getFirst().getCreationDate().toString())))
+                .andExpect(jsonPath("$[0].dueDate", Matchers.startsWith(taskDTOList.getFirst().getDueDate().toString())));
+    }
 }
