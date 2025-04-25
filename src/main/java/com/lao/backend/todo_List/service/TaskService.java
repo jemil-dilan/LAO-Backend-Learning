@@ -51,6 +51,8 @@ public class TaskService {
     public void updateTask(Long taskId, TaskCreationDTO taskCreationDTO){
         if (taskRepository.existsById(taskId)){
             Task task = taskCreationMapper.toTask(taskCreationDTO);
+            task.setId(taskId);
+            task.setStatus(updateTaskStatus(task.getStartDate(), task.getDueDate()));
             task.setUpdatedDate(LocalDateTime.now());
             taskRepository.save(task);
         }
