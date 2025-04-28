@@ -6,6 +6,8 @@ import java.math.BigDecimal;
 
 public class CreateAccountBuilder {
     private final AccountBuilder accountBuilder = new AccountBuilder();
+
+    private Long userId = accountBuilder.getUser().getId();
     private BigDecimal balance = accountBuilder.getBalance();
 
     public CreateAccountBuilder withBalance(BigDecimal balance){
@@ -13,6 +15,6 @@ public class CreateAccountBuilder {
         return this;
     }
     public CreateAccountDTO build(){
-        return new CreateAccountDTO(balance);
+        return new CreateAccountDTO(userId,balance);
     }
 }

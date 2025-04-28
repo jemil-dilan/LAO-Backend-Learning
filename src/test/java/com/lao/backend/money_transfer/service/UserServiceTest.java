@@ -106,7 +106,7 @@ class UserServiceTest {
         var user = userBuilder.build();
         var userDTO = userDtoBuilder.build();
 
-        when(userRepository.existByEmail(anyString())).thenReturn(false);
+        when(userRepository.existsByEmail(anyString())).thenReturn(false);
         when(createUserMapper.toUser(any(CreateUserDTO.class))).thenReturn(user);
         when(userRepository.save(any(User.class))).thenReturn(user);
         when(userMapper.toUserDTO(any(User.class))).thenReturn(userDTO);
@@ -122,7 +122,7 @@ class UserServiceTest {
         assertEquals(userDTO.getPhoneNumber(), result.getPhoneNumber());
         assertThat(userDTO).isEqualTo(result);
 
-        verify(userRepository).existByEmail(anyString());
+        verify(userRepository).existsByEmail(anyString());
         verify(createUserMapper).toUser(any(CreateUserDTO.class));
         verify(userRepository).save(any(User.class));
         verify(userMapper).toUserDTO(any(User.class));

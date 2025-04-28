@@ -33,7 +33,7 @@ public class UserService {
     }
 
     public UserDTO createUser(CreateUserDTO creatUserDTO) {
-        if (!userRepository.existByEmail(creatUserDTO.getEmail())){
+        if (!userRepository.existsByEmail(creatUserDTO.getEmail())){
             var user = createUserMapper.toUser(creatUserDTO);
             user.setCreationDate(LocalDateTime.now());
             return userMapper.toUserDTO(userRepository.save(user));
