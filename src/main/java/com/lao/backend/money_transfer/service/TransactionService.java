@@ -61,6 +61,7 @@ public class TransactionService {
             transaction.setReceiverAccount(receiver);
             transaction.setCreationDate(LocalDateTime.now());
             transaction.setReference("Insufficient balance");
+            transaction.setAmount(amount);
             transaction.setStatus(Status.FAILED);
             transactionRepository.save(transaction);
             throw new IllegalStateException("Insufficient balance");
