@@ -1,5 +1,6 @@
 package org.example.gestion_utilisateur.service;
 
+import org.example.gestion_utilisateur.domain.User;
 import org.example.gestion_utilisateur.dto.CreateUserDTO;
 import org.example.gestion_utilisateur.dto.UserDTO;
 import org.example.gestion_utilisateur.exceptions.ConflictException;
@@ -8,6 +9,7 @@ import org.example.gestion_utilisateur.mapper.UserMapper;
 import org.example.gestion_utilisateur.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -42,7 +44,10 @@ public class UserService {
 
     public void updateUser(Long id,CreateUserDTO createUserDTO) {
         if (userRepository.existsById(id)) {
-            userRepository.save(userMapper.toEntity(createUserDTO));
+            User entity = userMapper.toEntity(createUserDTO);
+            entity.setId(id);
+            entity.setLastUpdatedDate(LocalDateTime.now());
+            userRepository.save(entity);
         } else{throw new ConflictException("Email already exists");}
     }
 }

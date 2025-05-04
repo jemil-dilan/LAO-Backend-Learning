@@ -3,6 +3,7 @@ package org.example.gestion_utilisateur.dto;
 import lombok.*;
 
 @Data
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 public class CreateUserDTO {

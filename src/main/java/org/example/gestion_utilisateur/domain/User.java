@@ -13,15 +13,16 @@ import java.time.LocalDateTime;
 public class User{
 
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(name = "User First Name")
+    @Column(name = "First_Name", nullable = false)
     private  String firstName;
-    @Column(name = "User Last Name")
+    @Column(name = "Last_Name", nullable = false)
     private String lastName;
-    @Column(name = "Email")
+    @Column(name = "User_Email", nullable = false, unique = true)
     private String email;
-    @Column(name = "Creation Date")
+    @Column(name = "Creation_Date", nullable = false, updatable = false)
     private LocalDateTime creationDate = LocalDateTime.now();
-
+    @Column(name = "Last_Updated_Date")
+    private LocalDateTime lastUpdatedDate;
 }
