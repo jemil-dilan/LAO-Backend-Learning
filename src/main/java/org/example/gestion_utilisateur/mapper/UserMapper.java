@@ -10,6 +10,8 @@ public interface UserMapper {
     UserDTO toDTO(User user);
 
 
-    @BeanMapping(ignoreByDefault = true)
+    @Mapping(target = "lastUpdatedDate", ignore = true)
+    @Mapping(target = "id", ignore = true)
+    @Mapping(target = "creationDate", ignore = true)
     User toEntity(CreateUserDTO createUserDTO);
 }

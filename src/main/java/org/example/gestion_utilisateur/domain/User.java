@@ -7,6 +7,7 @@ import java.time.LocalDateTime;
 
 @Entity
 @Data
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "Users")
@@ -22,6 +23,7 @@ public class User{
     @Column(name = "User_Email", nullable = false, unique = true)
     private String email;
     @Column(name = "Creation_Date", nullable = false, updatable = false)
+    @Builder.Default
     private LocalDateTime creationDate = LocalDateTime.now();
     @Column(name = "Last_Updated_Date")
     private LocalDateTime lastUpdatedDate;

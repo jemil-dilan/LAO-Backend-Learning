@@ -48,6 +48,7 @@ public class UserServiceTests {
         List<UserDTO> resultUnderTest = objectUnderTest.getAllUsers();
 
         assertThat(resultUnderTest)
+                .isNotEmpty()
                 .hasSize(3)
                 .contains(userDTO1, userDTO2, userDTO3)
                 .startsWith(userDTO1)
@@ -58,7 +59,7 @@ public class UserServiceTests {
     void getUserByIdTest() {
         //Given
         User user = mock();
-        UserDTO userDTO = mock();
+        UserDTO userDTO = UserDTO.builder().id(2L).email("boo@gmail.com").firstName("johnny").lastName("boo").build();
 
         //When
         when(userMapper.toDTO(user)).thenReturn(userDTO);
@@ -90,8 +91,8 @@ public class UserServiceTests {
     void createUserTest() {
         //Given
         User user = mock();
-        UserDTO userDTO = mock();
-        CreateUserDTO createUserDTO = mock();
+        UserDTO userDTO = UserDTO.builder().id(1L).email("boo@gmail.com").firstName("johnny").lastName("boo").build();
+        CreateUserDTO createUserDTO = CreateUserDTO.builder().email("boo@gmail.com").firstName("johnny").lastName("boo").build();
 
         //When
         when(userRepository.existsByEmail(createUserDTO.getEmail())).thenReturn(false);
@@ -103,19 +104,25 @@ public class UserServiceTests {
         //Then
         UserDTO resultUnderTest = objectUnderTest.createUser(createUserDTO);
 
+
         assertThat(resultUnderTest)
-                .usingRecursiveComparison()
-                .isEqualTo(userDTO);
+                .satisfies(result -> {
+                    assertThat(result.getId()).isEqualTo(userDTO.getId());
+                    assertThat(result.getEmail()).isEqualTo(userDTO.getEmail());
+                    assertThat(result.getFirstName()).isEqualTo(userDTO.getFirstName());
+                    assertThat(result.getLastName()).isEqualTo(userDTO.getLastName());
+                });
+
     }
 
     @Test
     void updateUserTest() {
         //Given
-        User user = mock();
+        User user = User.builder().id(1L).email("boo@gmail.com").firstName("johnny").lastName("boo").build();;
         User user2 = mock();
         User user3 = mock();
         CreateUserDTO createUserDTO = mock();
-        UserDTO userDTO = mock();
+        UserDTO userDTO = UserDTO.builder().id(1L).email("boo@gmail.com").firstName("johnny").lastName("boo").build();
         UserDTO userDTO2 = mock();
         UserDTO userDTO3 = mock();
 
