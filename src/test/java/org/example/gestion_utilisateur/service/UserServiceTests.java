@@ -59,7 +59,7 @@ public class UserServiceTests {
     void getUserByIdTest() {
         //Given
         User user = mock();
-        UserDTO userDTO = UserDTO.builder().id(2L).email("boo@gmail.com").firstName("johnny").lastName("boo").build();
+        UserDTO userDTO = UserDTO.builder().id(2L).contact("0123456789").email("boo@gmail.com").firstName("johnny").lastName("boo").build();
 
         //When
         when(userMapper.toDTO(user)).thenReturn(userDTO);
@@ -91,8 +91,8 @@ public class UserServiceTests {
     void createUserTest() {
         //Given
         User user = mock();
-        UserDTO userDTO = UserDTO.builder().id(1L).email("boo@gmail.com").firstName("johnny").lastName("boo").build();
-        CreateUserDTO createUserDTO = CreateUserDTO.builder().email("boo@gmail.com").firstName("johnny").lastName("boo").build();
+        UserDTO userDTO = UserDTO.builder().id(1L).contact("0123456789").email("boo@gmail.com").firstName("johnny").lastName("boo").build();
+        CreateUserDTO createUserDTO = CreateUserDTO.builder().contact("0123456789").email("boo@gmail.com").firstName("johnny").lastName("boo").build();
 
         //When
         when(userRepository.existsByEmail(createUserDTO.getEmail())).thenReturn(false);
@@ -118,11 +118,11 @@ public class UserServiceTests {
     @Test
     void updateUserTest() {
         //Given
-        User user = User.builder().id(1L).email("boo@gmail.com").firstName("johnny").lastName("boo").build();;
+        User user = User.builder().id(1L).contact("0123456789").email("boo@gmail.com").firstName("johnny").lastName("boo").build();;
         User user2 = mock();
         User user3 = mock();
         CreateUserDTO createUserDTO = mock();
-        UserDTO userDTO = UserDTO.builder().id(1L).email("boo@gmail.com").firstName("johnny").lastName("boo").build();
+        UserDTO userDTO = UserDTO.builder().id(1L).contact("0123456789").email("boo@gmail.com").firstName("johnny").lastName("boo").build();
         UserDTO userDTO2 = mock();
         UserDTO userDTO3 = mock();
 

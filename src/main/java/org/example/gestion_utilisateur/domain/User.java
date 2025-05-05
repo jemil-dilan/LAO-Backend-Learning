@@ -22,6 +22,8 @@ public class User{
     private String lastName;
     @Column(name = "User_Email", nullable = false, unique = true)
     private String email;
+    @Column(name = "User_Contact", nullable = false, unique = true)
+    private String contact;
     @Column(name = "Creation_Date", nullable = false, updatable = false)
     @Builder.Default
     private LocalDateTime creationDate = LocalDateTime.now();

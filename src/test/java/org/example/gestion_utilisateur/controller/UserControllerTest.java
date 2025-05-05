@@ -56,7 +56,7 @@ class UserControllerTest {
 
     @Test
     void getUserByIdTest() throws Exception {
-        UserDTO userDTO = UserDTO.builder().id(1L).email("FOO@exzmplr.com").firstName("joe").lastName("boss").build();
+        UserDTO userDTO = UserDTO.builder().id(1L).email("FOO@exzmplr.com").contact("0123456789").firstName("joe").lastName("boss").build();
         when(userService.getUserById(anyLong())).thenReturn(userDTO);
 
         mockMvc.perform(get(BASE_URL + "/1").accept(MediaType.APPLICATION_JSON))
@@ -78,8 +78,8 @@ class UserControllerTest {
     }
     @Test
     void  createUserTest() throws Exception {
-        CreateUserDTO createUserDTO = CreateUserDTO.builder().email("FOO@exzmplr.com").firstName("joe").lastName("boss").build();
-        UserDTO userDTO = UserDTO.builder().id(1L).email("FOO@exzmplr.com").firstName("joe").lastName("boss").build();
+        CreateUserDTO createUserDTO = CreateUserDTO.builder().email("FOO@exzmplr.com").firstName("joe").lastName("boss").contact("0123456789").build();
+        UserDTO userDTO = UserDTO.builder().id(1L).email("FOO@exzmplr.com").firstName("joe").lastName("boss").contact("0123456789").build();
 
         when(userService.createUser(createUserDTO)).thenReturn(userDTO);
 
@@ -90,13 +90,14 @@ class UserControllerTest {
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.id").value(userDTO.getId()))
                 .andExpect(jsonPath("$.email").value(userDTO.getEmail()))
+                .andExpect(jsonPath("$.contact").value(userDTO.getContact()))
                 .andExpect(jsonPath("$.firstName").value(userDTO.getFirstName()))
                 .andExpect(jsonPath("$.lastName").value(userDTO.getLastName()));
     }
 
     @Test
     void updateUserTest() throws Exception {
-        CreateUserDTO createUserDTO = CreateUserDTO.builder().email("FOO@exzmplr.com").firstName("joe").lastName("boss").build();
+        CreateUserDTO createUserDTO = CreateUserDTO.builder().contact("0123456789").email("FOO@exzmplr.com").firstName("joe").lastName("boss").build();
 
 
         doNothing().when(userService).updateUser(2L, createUserDTO);

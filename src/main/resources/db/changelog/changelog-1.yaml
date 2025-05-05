@@ -35,6 +35,12 @@ databaseChangeLog:
                     unique: true
                     nullable: false
               - column:
+                  name: user_contact
+                  type: varchar(250)
+                  constraints:
+                    unique: true
+                    nullable: false
+              - column:
                   name: creation_date
                   type: TIMESTAMP
                   defaultValueComputed: CURRENT_TIMESTAMP
@@ -49,6 +55,12 @@ databaseChangeLog:
             columns:
               - column:
                   name: user_email
+        - createIndex:
+            tableName: users
+            indexName: idx_users_contact
+            columns:
+              - column:
+                  name: user_contact
   - changeSet:
       id: 2
       author: jemil-dilan
@@ -65,6 +77,9 @@ databaseChangeLog:
               - column:
                   name: user_email
                   value: "johnDoe@sample.com"
+              - column:
+                  name: user_contact
+                  value: "1234567890"
               - column:
                   name: last_updated_date
                   valueDate: "2025-07-01T00:00:00"
