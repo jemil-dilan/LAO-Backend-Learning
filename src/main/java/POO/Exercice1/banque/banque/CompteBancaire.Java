@@ -20,7 +20,12 @@ public class CompteBancaire{
 
     public void retirer(int montant){
 
-        setSolde(this.solde - montant);
+        if (this.solde >= montant){
+        
+            setSolde(this.solde - montant);
+        } else {
+            Sytemem.out.println("Le solde est insuffisant");
+        }
     }
 
     public int getSolde(){
