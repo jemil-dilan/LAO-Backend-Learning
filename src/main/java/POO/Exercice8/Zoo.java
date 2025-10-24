@@ -3,21 +3,21 @@ import java.util.List;
 
 public class Zoo {
 
-    List<Animal> listeAnimal = new ArrayList<Animal>();
+    List<Animal> allTheAnimals = new ArrayList<Animal>();
     
-    public void nourriTousLesAnimaux(){
+    public void feedAllTheAnimals(){
 
-        for (Animal animal : listeAnimal) {
+        for (Animal animal : allTheAnimals) {
             
-            animal.manger();
+            animal.eat();
         }
     }
 
-    public void heureNuit(){
+    public void nightHours(){
 
-        for (Animal animal : listeAnimal) {
+        for (Animal animal : allTheAnimals) {
             
-            animal.dormir();
+            animal.sleep();
         }
     }
 }

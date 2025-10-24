@@ -1,36 +1,34 @@
 package figures;
 
-public class Rectangle extends Forme {
+public class Rectangle extends Shape {
     
-    private double largeur;
-    private double hauteur;
+    private double width;
+    private double height;
     
-    public Rectangle(double largeur, double hauteur){
+    public Rectangle(double width, double height){
 
-        this.largeur = largeur;
-        this.hauteur = hauteur;
+        this.width = width;
+        this.height = height;
     }
 
-    public double getHauteur() {
-        return this.hauteur;
+    public double getHeight() {
+        return this.height;
     }
 
-    public double getLargeur() {
-        return this.largeur;
+    public double getWidth() {
+        return this.width;
     }
 
     @Override
-    public double calculerAire() {
-        // TODO Auto-generated method stub
-        // throw new UnsupportedOperationException("Unimplemented method 'calculerAire'");
-        return this.largeur*this.hauteur;
+    public double calculateArea() {
+
+        return width * height;
     }
 
     @Override
-    public double calculerPerimetre() {
-        // TODO Auto-generated method stub
-        // throw new UnsupportedOperationException("Unimplemented method 'calculerPerimetre'");
-        return 2*(this.largeur + this.hauteur);
+    public double calculatePerimeter() {
+
+        return 2 * (width + height);
     }
     
     

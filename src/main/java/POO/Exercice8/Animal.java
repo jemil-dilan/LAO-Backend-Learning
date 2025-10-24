@@ -1,6 +1,6 @@
 public interface Animal {
     
-    void faireBruit();
-    void manger();
-    void dormir();
+    void makeNoise();
+    void eat();
+    void sleep();
 }

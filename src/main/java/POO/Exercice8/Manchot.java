@@ -1,26 +1,21 @@
-public class Manchot implements Animal, Volable {
+public class Manchot implements Animal{
     
     @Override
-    public void faireBruit() {
-        // TODO Auto-generated method stub
-        
+    public void makeNoise() {
+
+        System.out.println("Je trumpette Aaah-aaaah-aaaah!");
     }
 
     @Override
-    public void manger() {
-        // TODO Auto-generated method stub
-        
+    public void eat() {
+
+        System.out.println("Je mange beaucoup de poisson");
     }
 
     @Override
-    public void dormir() {
-        // TODO Auto-generated method stub
-        
+    public void sleep() {
+
+        System.out.println("Je dors plus de 8h par jours");
     }
 
-    @Override
-    public void voler() {
-        // TODO Auto-generated method stub
-        
-    }
 }

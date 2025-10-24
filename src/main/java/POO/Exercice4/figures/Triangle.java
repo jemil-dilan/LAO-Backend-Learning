@@ -1,51 +1,51 @@
 package figures;
 
-public class Triangle extends Forme{
+public class Triangle extends Shape {
     
     private double base;
-    private double hauteur;
-    private double cote1;
-    private double cote2;
-    private double cote3;
+    private double height;
+    private double side1;
+    private double side2;
+    private double side3;
 
-    public Triangle( double base, double hauteur, double cote1, double cote2, double cote3){
+    public Triangle(double base, double height, double side1, double side2, double side3){
 
         this.base = base;
-        this.hauteur = hauteur;
-        this.cote1 = cote1;
-        this.cote2 = cote2;
-        this.cote3 = cote3;
+        this.height = height;
+        this.side1 = side1;
+        this.side2 = side2;
+        this.side3 = side3;
     }
 
     public double getBase() {
         return this.base;
     }
 
-    public double getCote1() {
-        return this.cote1;
+    public double getSide1() {
+        return this.side1;
     }
 
-    public double getCote2() {
-        return this.cote2;
+    public double getSide2() {
+        return this.side2;
     }
 
-    public double getCote3() {
-        return this.cote3;
+    public double getSide3() {
+        return this.side3;
     }
 
-    public double getHauteur() {
-        return this.hauteur;
+    public double getHeight() {
+        return this.height;
     }
 
         @Override
-    public double calculerAire() {
+    public double calculateArea() {
 
-        return (this.base*this.hauteur)/2;
+        return (base * height)/2;
     }
 
     @Override
-    public double calculerPerimetre() {
+    public double calculatePerimeter() {
 
-        return this.cote1 + this.cote2 + this.cote3;
+        return side1 + side2 + side3;
     }
 }
