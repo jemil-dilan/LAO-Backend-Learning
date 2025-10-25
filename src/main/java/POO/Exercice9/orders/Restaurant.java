@@ -22,35 +22,28 @@ public class Restaurant {
         }
     }
 
-    public Order createAnOrder(List<String> nomsArticles){
+    public Order createAnOrder(List<String> itemsNames){
 
-        Order anOrder = new Order();
+
         Set<MenuItem> commandItem = new LinkedHashSet<MenuItem>();
-        int totalPrice = 0;
-
 
         for (MenuItem menuItem : menu) {
 
-            for (String string : nomsArticles) {
-                
-                if (Objects.equals(menuItem.getNom(), string)) {
+            for (String itemName : itemsNames) {
+
+                if (Objects.equals(menuItem.getName(), itemName)) {
                     
                     commandItem.add(menuItem);
                 }
             }
         }
-        
-        //Déterminer le prix total
-        for (MenuItem articleCommande : commandItem) {
 
-            totalPrice = totalPrice + articleCommande.getPrix();
-        }
+        Order order = new Order();
+        order.setMenuItems(commandItem);
+        order.calculatePrice();
+        order.setCommandNumber(this.orders.getLast().getCommandNumber() + 1);
 
-        //Créer une commande
-        anOrder.setMenuItems(commandItem);
-        anOrder.setTotalPrice(totalPrice);
-        anOrder.setCommandNumber(this.orders.getLast().getCommandNumber() + 1);
-        return anOrder;
+        return order;
     }
 
     public int calculateTotalOfSales(){

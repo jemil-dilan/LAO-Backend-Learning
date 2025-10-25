@@ -9,7 +9,7 @@ public class BasketItem {
         this.quantity = quantity;
     }
 
-    public Product getProduit() {
+    public Product getProduct() {
         return product;
     }
 

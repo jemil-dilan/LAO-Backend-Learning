@@ -13,6 +13,10 @@ public class Order {
         return menuItems;
     }
 
+    public void setMenuItems(Set<MenuItem> menuItems) {
+        this.menuItems = menuItems;
+    }
+
     public int getCommandNumber() {
         return commandNumber;
     }
@@ -20,16 +24,16 @@ public class Order {
     public void setCommandNumber(int commandNumber) {
         this.commandNumber = commandNumber;
     }
-
-    public void setTotalPrice(int totalPrice) {
-        this.totalPrice = totalPrice;
-    }
     
     public int getTotalPrice() {
         return totalPrice;
     }
 
-    public void setMenuItems(Set<MenuItem> menuItems) {
-        this.menuItems = menuItems;
+    public void calculatePrice(){
+
+        for (MenuItem menuItem : menuItems) {
+
+            totalPrice += menuItem.getPrice();
+        }
     }
 }

@@ -49,10 +49,32 @@ public class Course {
         if (maximumCapacity < studentRegistered.size()) {
             
             studentRegistered.add(student);
+            student.registerToCourse(this);
         } else {
-            
+
             System.out.println("Le nombre maximal d\'étudiant a été atteind pour ce cours");
         }
-        
+    }
+
+    public void removeStudent(Student student){
+
+        if (!studentRegistered.isEmpty()) {
+
+            studentRegistered.remove(student);
+
+        } else {
+
+            System.out.println("Le nombre d\'étudiant est null");
+        }
+    }
+
+    public void displayCourseInformations(){
+
+            System.out.println("----- Informations du cours -----");
+            System.out.println("Code du cours       : " + courseCode);
+            System.out.println("Nom du cours        : " + courseName);
+            System.out.println("Professeur          : " + professor);
+            System.out.println("Capacité maximale d'étudiants autorisés : " + maximumCapacity);
+            System.out.println("---------------------------------");
     }
 }

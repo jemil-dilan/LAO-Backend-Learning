@@ -1,35 +1,35 @@
 public class Product {
     
     private String id;
-    private String nom;
-    private int prix;
-    private int quantite;
+    private String name;
+    private int price;
+    private int quantity;
 
-    public Product(String id, String nom, int prix, int quantite){
+    public Product(String id, String name, int price, int quantity){
 
         this.id = id;
-        this.nom = nom; 
-        this.prix = Math.max(0, prix);
-        this.quantite = quantite;
+        this.name = name;
+        this.price = Math.max(0, price);
+        this.quantity = quantity;
     }
 
-    public int getPrix() {
-        return prix;
+    public int getPrice() {
+        return price;
     }
 
     public String getId() {
         return id;
     }
 
-    public int getQuantite() {
-        return quantite;
+    public int getQuantity() {
+        return quantity;
     }
     
-    public String getNom() {
-        return nom;
+    public String getName() {
+        return name;
     }
     
-    public void setQuantite(int quantite) {
-        this.quantite = quantite;
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
     }
 }

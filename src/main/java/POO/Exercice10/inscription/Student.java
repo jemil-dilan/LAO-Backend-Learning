@@ -9,12 +9,17 @@ public class Student {
     private String name;
     private Set<Course> coursesWhereRegitered = new HashSet<Course>();
 
-    public String getName() {
-        return name;
+    public Student(int studentNumber, String name) {
+        this.studentNumber = studentNumber;
+        this.name = name;
     }
-    
+
     public int getStudentNumber() {
         return studentNumber;
+    }
+
+    public String getName() {
+        return name;
     }
 
     public Set<Course> getCoursesWhereRegistered() {
@@ -29,6 +34,7 @@ public class Student {
     public void leaveTheCourse(Course course){
         
         coursesWhereRegitered.remove(course);
+        course.removeStudent(this);
     }
 
 }

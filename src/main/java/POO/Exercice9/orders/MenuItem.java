@@ -2,19 +2,15 @@ package orders;
 
 public class MenuItem {
 
-    private String nom;
-    private int prix;
-    private String categorie;
+    private String name;
+    private int price;
+    private String category;
 
-    public int getPrix() {
-        return prix;
+    public int getPrice() {
+        return price;
     }
 
-    public String getNom() {
-        return nom;
-    }
-
-    public String getCategorie() {
-        return categorie;
+    public String getName() {
+        return name;
     }
 }

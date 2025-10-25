@@ -1,17 +1,20 @@
 package inscription;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class University {
     
-    private List<Student> studentsRegistered = new ArrayList<Student>();
+    private Set<Student> studentsRegistered = new HashSet<Student>();
     private List<Course> differentsCourses = new ArrayList<Course>();
 
-    //Ajouter des prérequis (il faut un prof) pour les cours et les valider (le prof est là?) lors de l'inscription.
+    public void displaySomeCourse(String courseCode){
 
-    public static void displayCourseList(String courseCode){
+        for (Course course : differentsCourses) {
 
-        
+            if (Objects.equals(course.getCourseCode(), courseCode)){
+                course.displayCourseInformations();
+                break;
+            }
+        }
     }
 }
