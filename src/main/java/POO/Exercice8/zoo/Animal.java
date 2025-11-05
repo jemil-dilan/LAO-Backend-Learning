@@ -1,3 +1,5 @@
+package zoo;
+
 public interface Animal {
     
     void makeNoise();

@@ -1,3 +1,5 @@
+package zoo;
+
 public class Lion implements Animal {
     
     @Override

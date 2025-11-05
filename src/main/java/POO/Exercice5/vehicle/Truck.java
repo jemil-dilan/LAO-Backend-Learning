@@ -1,3 +1,5 @@
+package vehicle;
+
 public class Truck extends Vehicle {
     
     private int loadingCapacity;

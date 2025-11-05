@@ -1,3 +1,5 @@
+package vehicle;
+
 public class Vehicle {
 
     private String brand;

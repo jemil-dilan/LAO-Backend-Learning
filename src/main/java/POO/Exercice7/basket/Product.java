@@ -1,3 +1,5 @@
+package basket;
+
 public class Product {
     
     private String id;

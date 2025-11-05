@@ -1,3 +1,5 @@
+package basket;
+
 public class BasketItem {
     
     private Product product;

@@ -1,3 +1,5 @@
+package zoo;
+
 public class Manchot implements Animal{
     
     @Override

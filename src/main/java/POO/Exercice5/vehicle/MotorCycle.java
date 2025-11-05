@@ -1,3 +1,5 @@
+package vehicle;
+
 public class MotorCycle extends Vehicle {
    
     private int aSidecar;

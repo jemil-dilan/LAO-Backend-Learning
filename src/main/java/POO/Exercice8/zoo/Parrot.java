@@ -1,3 +1,5 @@
+package zoo;
+
 public class Parrot implements Animal, Flyable {
     
     @Override

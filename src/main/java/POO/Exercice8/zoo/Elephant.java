@@ -1,3 +1,5 @@
+package zoo;
+
 public class Elephant implements Animal {
     
     @Override
