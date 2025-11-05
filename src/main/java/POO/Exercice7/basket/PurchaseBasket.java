@@ -14,24 +14,24 @@ public class PurchaseBasket {
         listeBasketItems.add(basketItem);
     }
 
-    public void removeItem(String idProduit){
+    public void removeItem(String idProduct){
 
         for (BasketItem basketItem : listeBasketItems) {
             
-            if (Objects.equals(basketItem.getProduct().getId(), idProduit)) {
+            if (Objects.equals(basketItem.getProduct().getId(), idProduct)) {
                 
                 listeBasketItems.remove(basketItem);
             }
         }
     }
 
-    public void updateQuantity(String idProduit, int newQuantity){
+    public void updateQuantity(String idProduct, int newQuantity){
         
         for (BasketItem basketItem : listeBasketItems) {
             
-            if (Objects.equals(basketItem.getProduct().getId(), idProduit)) {
+            if (Objects.equals(basketItem.getProduct().getId(), idProduct)) {
                 
-                basketItem.getProduct().setQuantity(newQuantity);
+                basketItem.setQuantity(newQuantity);
             }
         }
     }

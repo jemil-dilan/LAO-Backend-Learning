@@ -33,12 +33,12 @@ public class Student {
 
     public double getAverage(){
 
-        double average = 0;
+        double totalOfNotes = 0;
         for (Integer note : this.notes) {
-    
-            average = average + note;
+
+            totalOfNotes = totalOfNotes + note;
         }
-        return average/this.notes.size();
+        return totalOfNotes/this.notes.size();
     }
 
     public int getBestNote(){

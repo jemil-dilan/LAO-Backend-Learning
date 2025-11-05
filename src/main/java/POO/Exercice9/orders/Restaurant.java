@@ -57,4 +57,8 @@ public class Restaurant {
         }
         return total;
     }
+
+    public List<Order> getOrders() {
+        return orders;
+    }
 }

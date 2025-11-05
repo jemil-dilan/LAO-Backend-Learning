@@ -1,13 +1,14 @@
 package orders;
 
-import java.util.ArrayList;
-import java.util.List;
+
+import java.util.HashSet;
+import java.util.Set;
 
 public class Customer {
 
-    private List<Order> orders = new ArrayList<Order>();
+    private Set<Order> orders = new HashSet<Order>();
 
-    public Customer(List<Order> orders) {
+    public Customer(Set<Order> orders) {
         this.orders = orders;
     }
 
@@ -22,7 +23,20 @@ public class Customer {
         }
     }
 
-    public List<Order> getOrders() {
+    public  void placeAnOrder(Restaurant restaurant, Set<MenuItem> menuItems) {
+
+        var commandNumber =  orders.size() + 1;
+
+        Order order = new Order();
+        order.setMenuItems(menuItems);
+        order.setCommandNumber(commandNumber);
+        order.calculatePrice();
+
+        this.orders.add(order);
+        restaurant.getOrders().add(order);
+    }
+
+    public Set<Order> getOrders() {
         return orders;
     }
 }
