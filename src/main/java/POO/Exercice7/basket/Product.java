@@ -1,4 +1,4 @@
-package basket;
+package POO.Exercice7.basket;
 
 public class Product {
     

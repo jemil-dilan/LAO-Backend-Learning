@@ -1,4 +1,4 @@
-package bank;
+package POO.Exercice1.bank;
 
 public class Test {
 

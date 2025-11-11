@@ -1,4 +1,4 @@
-package student;
+package POO.Exercice2.student;
 
 import java.util.ArrayList;
 import java.util.List;

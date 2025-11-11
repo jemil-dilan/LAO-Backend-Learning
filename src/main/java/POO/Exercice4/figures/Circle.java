@@ -1,4 +1,4 @@
-package figures;
+package POO.Exercice4.figures;
 
 public class Circle extends Shape {
     

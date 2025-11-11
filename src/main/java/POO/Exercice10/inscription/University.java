@@ -1,4 +1,4 @@
-package inscription;
+package POO.Exercice10.inscription;
 
 import java.util.*;
 

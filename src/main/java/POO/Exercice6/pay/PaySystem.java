@@ -1,4 +1,4 @@
-package pay;
+package POO.Exercice6.pay;
 
 import java.util.HashSet;
 import java.util.Set;

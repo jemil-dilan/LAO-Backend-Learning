@@ -1,4 +1,4 @@
-package pay;
+package POO.Exercice6.pay;
 
 public abstract class Employee {
     

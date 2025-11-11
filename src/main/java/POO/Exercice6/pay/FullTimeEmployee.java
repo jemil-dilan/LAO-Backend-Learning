@@ -1,4 +1,4 @@
-package pay;
+package POO.Exercice6.pay;
 
 public class FullTimeEmployee extends Employee {
     

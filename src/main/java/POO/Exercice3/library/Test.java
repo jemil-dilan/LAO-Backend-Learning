@@ -1,4 +1,4 @@
-package library;
+package POO.Exercice3.library;
 
 public class Test {
     
