@@ -5,7 +5,10 @@ import java.util.List;
 
 public class BirthDay extends Event{
 
-    public BirthDay(LocalDate date, String place, List<Guest> guests) {
+    private String  birthDayOwnerName;
+
+    public BirthDay(LocalDate date, String place, List<Guest> guests, String birthDayOwnerName) {
         super(date, place, guests);
+        this.birthDayOwnerName = birthDayOwnerName;
     }
 }

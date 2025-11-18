@@ -4,28 +4,28 @@ import java.util.*;
 
 public class CommandsService {
 
-    Set<Command> commands;
+    Set<Command> commandsCosts;
 
-    public CommandsService(Set<Command> commands) {
-        this.commands = new HashSet<>(commands);
+    public CommandsService(Set<Command> commandsCosts) {
+        this.commandsCosts = commandsCosts;
     }
 
     public void addCommand(Command command){
 
-        commands.add(command);
+        commandsCosts.add(command);
     }
 
     public void removeCommand(Command command){
 
-        commands.remove(command);
+        commandsCosts.remove(command);
     }
 
 
     public Optional<Command> mostExpensiveCommand(){
 
-        return  commands.stream()
+        return  commandsCosts.stream()
                 .filter(Objects::nonNull)
                 .peek(Command::calculateCost)
-                .reduce((command1, command2) ->  command1.getCost() >= command2.getCost() ? command1 : command2);
+                .reduce((commandCost1, commandCost2) -> commandCost1.getCost() >= commandCost2.getCost() ? commandCost1: commandCost2);
     }
 }

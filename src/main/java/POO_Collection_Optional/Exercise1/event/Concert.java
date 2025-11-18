@@ -5,7 +5,12 @@ import java.util.List;
 
 public class Concert extends Event{
 
-    public Concert(LocalDate date, String place, List<Guest> guests) {
+    private String artist;
+    private int placeLimit;
+
+    public Concert(LocalDate date, String place, List<Guest> guests, String artist, int placeLimit) {
         super(date, place, guests);
+        this.artist = artist;
+        this.placeLimit = placeLimit;
     }
 }

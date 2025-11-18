@@ -1,17 +1,22 @@
 package POO_Collection_Optional.Exercise2.bank;
 
-import java.util.ArrayList;
-import java.util.List;
+
+import java.util.HashSet;
+import java.util.Set;
 
 public class Customer {
 
     private String name;
     private int idNumber;
-    private List<BankAccount> accounts = new ArrayList<BankAccount>();
+    private Set<BankAccount> accounts;
 
-    public Customer(String name, int idNumber, List<BankAccount> accounts) {
+    public Customer(String name, int idNumber, Set<BankAccount> accounts) {
         this.name = name;
         this.idNumber = idNumber;
-        this.accounts = accounts;
+        this.accounts = new HashSet<BankAccount>(accounts);
+    }
+
+    public Set<BankAccount> getAccounts() {
+        return accounts;
     }
 }

@@ -1,13 +1,13 @@
 package POO_COLL_OPT.Exercise6.studentsManager;
 
-public class Employee {
+public class Student {
 
     private String name;
     private int age;
     private double averageNote;
 
 
-    public Employee(String name, int age, double averageNote) {
+    public Student(String name, int age, double averageNote) {
         this.name = name;
         this.age = age;
         this.averageNote = averageNote;

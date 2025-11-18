@@ -1,5 +1,6 @@
 package POO_Collection_Optional.Exercise1.event;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,4 +22,10 @@ public class EventsManager {
         events.remove(event);
     }
 
+    public void listAllEventsAtTheDate(LocalDate date){
+
+        events.stream()
+                .filter(event -> event.getDate().isEqual(date))
+                .forEach(System.out::println);
+    }
 }

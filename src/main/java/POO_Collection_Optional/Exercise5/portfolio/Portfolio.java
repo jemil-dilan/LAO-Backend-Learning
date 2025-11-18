@@ -17,4 +17,9 @@ public class Portfolio {
                 .map(investment -> investment.getPrice().orElse(0.0))
                 .reduce((price1, price2) -> price1 >= price2? price1 : price2);
     }
+
+    public void addNewInvestment(Investment investment){
+
+        investments.add(investment);
+    }
 }

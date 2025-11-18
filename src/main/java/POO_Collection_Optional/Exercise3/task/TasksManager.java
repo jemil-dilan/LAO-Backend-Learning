@@ -1,16 +1,14 @@
 package POO_Collection_Optional.Exercise3.task;
 
-import java.util.Comparator;
-import java.util.Objects;
-import java.util.PriorityQueue;
-import java.util.Queue;
+import java.util.*;
 
 public class TasksManager {
 
     Queue<Task>  tasks;
 
     public TasksManager() {
-        this.tasks = new PriorityQueue<>(Comparator.comparing(Task::getState).thenComparing(Task::getDueDate));
+
+        this.tasks = new PriorityQueue<Task>();
     }
 
     public void addTask(Task task){
@@ -30,12 +28,20 @@ public class TasksManager {
 
     public void cancelTask (Task task) {
 
-        tasks.forEach(task1 -> {
+        Iterator<Task> taskIterator = tasks.iterator();
+
+        while (taskIterator.hasNext()){
+
+            Task task1 = taskIterator.next();
             if (Objects.equals(task1,task)){
 
                 task1.setState(Task.State.CANCELED);
-                tasks.poll();
+                tasks.remove(task1);
             }
-        });
+        }
+    }
+
+    public Queue<Task> getTasks() {
+        return tasks;
     }
 }

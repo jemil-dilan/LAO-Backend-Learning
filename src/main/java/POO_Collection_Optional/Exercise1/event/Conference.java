@@ -5,7 +5,10 @@ import java.util.List;
 
 public class Conference extends Event{
 
-    public Conference(LocalDate date, String place, List<Guest> guests) {
+    private String topic;
+
+    public Conference(LocalDate date, String place, List<Guest> guests, String topic) {
         super(date, place, guests);
+        this.topic = topic;
     }
 }

@@ -37,6 +37,6 @@ public class VehicleFleet {
 
     public Optional<Vehicle> findOldestVehicle() {
 
-        return  vehicles.stream().filter(Objects::nonNull).reduce((vehicle1, vehicle2) ->  vehicle1.getYearOfProduction() >= vehicle2.getYearOfProduction() ? vehicle1 : vehicle2);
+        return  vehicles.stream().filter(Objects::nonNull).reduce((vehicle1, vehicle2) ->  vehicle1.getYearOfProduction() <= vehicle2.getYearOfProduction() ? vehicle1 : vehicle2);
     }
 }

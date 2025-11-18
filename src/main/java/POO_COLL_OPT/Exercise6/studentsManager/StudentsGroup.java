@@ -7,23 +7,23 @@ import java.util.Optional;
 
 public class StudentsGroup {
 
-    List<Employee> students;
+    List<Student> students;
 
-    public StudentsGroup(List<Employee> students) {
-        this.students = new ArrayList<Employee>(students);
+    public StudentsGroup(List<Student> students) {
+        this.students = new ArrayList<Student>(students);
     }
 
-    public void addStudent(Employee student){
+    public void addStudent(Student student){
 
         students.add(student);
     }
 
-    public void removeStudent(Employee student){
+    public void removeStudent(Student student){
 
         students.remove(student);
     }
 
-    public Optional<Employee> studentWithBestNotes () {
+    public Optional<Student> studentWithBestNotes () {
 
         return  students.stream().filter(Objects::nonNull).reduce((student1, student2) ->  student1.getAverageNote() >= student2.getAverageNote() ? student1 : student2);
     }

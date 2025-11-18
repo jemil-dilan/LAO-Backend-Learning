@@ -14,4 +14,21 @@ public class Event {
         this.place = place;
         this.guests = guests;
     }
+
+    public void addSomeGuest(Guest guest){
+
+        guests.add(guest);
+    }
+
+    public LocalDate getDate() {
+        return date;
+    }
+
+    @Override
+    public String toString() {
+        return "Event{" +
+                "place='" + place + '\'' +
+                ", date=" + date +
+                '}';
+    }
 }

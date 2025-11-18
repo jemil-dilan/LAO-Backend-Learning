@@ -24,4 +24,15 @@ public class Bank {
     public void makeTransfer(BankAccount bankAccount, BankAccount destinationAccount, int amount){
         bankAccounts.stream().filter(bankAccount1 ->  Objects.equals(bankAccount1,bankAccount)).forEach(bankAccount1 -> bankAccount1.transfer(amount,destinationAccount));
     }
+
+    public void addCustomer(Customer customer){
+
+        customers.add(customer);
+    }
+
+    public void removeCustomer(Customer customer){
+
+        bankAccounts.removeAll(customer.getAccounts());
+        customers.remove(customer);
+    }
 }

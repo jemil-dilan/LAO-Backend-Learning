@@ -2,9 +2,14 @@ package POO_Collection_Optional.Exercise3.task;
 
 import java.time.LocalDateTime;
 
-public class Task {
+public class Task implements Comparable<Task>{
 
-    public enum State {CANCELED , FINISHED, ONGOING}
+    public enum State {
+        CANCELED(1) , FINISHED(2), ONGOING(3);
+        int weight;
+
+        State(Integer weight){this.weight = weight;}
+    }
 
     private String description;
     private LocalDateTime dueDate;
@@ -29,5 +34,33 @@ public class Task {
 
     public void setState(State state) {
         this.state = state;
+    }
+
+    @Override
+    public String toString() {
+        return "Task :" +
+                "description='" + description +
+                "  dueDate=" + dueDate +
+                "  state=" + state +
+                "\n";
+    }
+
+    @Override
+    public int compareTo(Task other) {
+
+        Integer orderThis = this.getState().weight;
+        Integer orderOther = other.getState().weight;
+
+        if (orderThis == null || orderOther == null) {
+            return 0;
+        }
+
+        int stateComparison = orderThis.compareTo(orderOther);
+
+        if (stateComparison == 0) {
+            return this.dueDate.compareTo(other.getDueDate());
+        }
+
+        return stateComparison;
     }
 }

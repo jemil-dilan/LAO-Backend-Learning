@@ -14,4 +14,15 @@ public class Customer {
         this.idNumber = idNumber;
         this.accounts = accounts;
     }
+
+    public void addAccount(BankAccount account){
+
+        accounts.add(account);
+    }
+
+    public void removeAccount (BankAccount account){
+
+        accounts.remove(account);
+    }
+
 }
