@@ -21,7 +21,7 @@ public class BankAccount {
     public void withdraw(int amount){
 
         if (this.balance >= amount){
-        
+
             setBalance(this.balance - amount);
         } else {
             System.out.println("The balance is insuffisant");
@@ -36,6 +36,10 @@ public class BankAccount {
     public void setBalance(int balance){
 
         this.balance = balance;
+    }
+
+    public int getAccountNumber() {
+        return accountNumber;
     }
 
     public void transfer(int amount, BankAccount destinationAccount){

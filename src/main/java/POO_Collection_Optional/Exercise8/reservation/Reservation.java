@@ -3,23 +3,25 @@ package POO_Collection_Optional.Exercise8.reservation;
 public class Reservation {
 
     private String spectatorName;
-    private int placeNumber;
+    private Place place;
 
-    public Reservation(String spectatorName, int placeNumber) {
+    public Reservation(String spectatorName, Place place) {
+
         this.spectatorName = spectatorName;
-        this.placeNumber = placeNumber;
+        this.place = place;
+        place.setPlaceAvailability(false);
     }
 
     public String getSpectatorName() {
         return spectatorName;
     }
 
-    public int getPlaceNumber() {
-        return placeNumber;
+    public Place getPlace() {
+        return place;
     }
 
     @Override
     public String toString() {
-        return "Spectator: " + spectatorName + ", place n°" + placeNumber;
+        return "Spectator: " + spectatorName + ", place n°" + place;
     }
 }

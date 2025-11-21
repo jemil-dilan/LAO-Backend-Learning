@@ -40,12 +40,12 @@ public class Student {
         return Optional.ofNullable(evaluationsNotes.get(evaluation));
     }
 
-
     public void setName(String name) {
         this.name = name;
     }
 
-    public void setEvaluationsNotes(Map<Evaluation, Double> evaluationsNotes) {
-        this.evaluationsNotes = evaluationsNotes;
+    public void reEvaluate(Evaluation evaluation, Double note) {
+
+        evaluationsNotes.put(evaluation, note);
     }
 }

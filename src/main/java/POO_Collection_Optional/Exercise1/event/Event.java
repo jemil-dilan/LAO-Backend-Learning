@@ -7,15 +7,15 @@ public class Event {
 
    protected LocalDate date;
    protected String place;
-   protected List<Guest> guests;
+   protected List<String> guests;
 
-    public Event(LocalDate date, String place, List<Guest> guests) {
+    public Event(LocalDate date, String place, List<String> guests) {
         this.date = date;
         this.place = place;
         this.guests = guests;
     }
 
-    public void addSomeGuest(Guest guest){
+    public void addSomeGuest(String guest){
 
         guests.add(guest);
     }

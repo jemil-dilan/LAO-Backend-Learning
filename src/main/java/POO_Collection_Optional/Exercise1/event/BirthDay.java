@@ -7,7 +7,7 @@ public class BirthDay extends Event{
 
     private String  birthDayOwnerName;
 
-    public BirthDay(LocalDate date, String place, List<Guest> guests, String birthDayOwnerName) {
+    public BirthDay(LocalDate date, String place, List<String> guests, String birthDayOwnerName) {
         super(date, place, guests);
         this.birthDayOwnerName = birthDayOwnerName;
     }

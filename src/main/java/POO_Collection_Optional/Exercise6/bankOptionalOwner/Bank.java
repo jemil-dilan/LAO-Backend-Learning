@@ -1,29 +1,31 @@
 package POO_Collection_Optional.Exercise6.bankOptionalOwner;
 
+import java.util.LinkedHashSet;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 
 public class Bank {
 
-    private Set<BankAccount> bankAccounts;
+    private LinkedHashSet<BankAccount> bankAccounts;
     private Set<Customer> customers;
 
-    public Bank(Set<BankAccount> bankAccounts, Set<Customer> customers) {
+    public Bank(LinkedHashSet<BankAccount> bankAccounts, Set<Customer> customers) {
         this.bankAccounts = bankAccounts;
         this.customers = customers;
     }
 
-    public void makeDeposit(BankAccount bankAccount, int amount){
-        bankAccounts.stream().filter(bankAccount1 ->  Objects.equals(bankAccount1,bankAccount)).forEach(bankAccount1 -> bankAccount1.deposit(amount));
+
+    public void addNewCustomer(Customer owner){
+
+        bankAccounts.add(new BankAccount(bankAccounts.getLast().getAccountNumber() + 1, owner, 0));
+        customers.add(owner);
     }
 
-    public void makeWithdraw(BankAccount bankAccount, int amount){
-        bankAccounts.stream().filter(bankAccount1 ->  Objects.equals(bankAccount1,bankAccount)).forEach(bankAccount1 -> bankAccount1.withdraw(amount));
-    }
+    public void removeCustomer(Customer customer){
 
-    public void makeTransfer(BankAccount bankAccount, BankAccount destinationAccount, int amount){
-        bankAccounts.stream().filter(bankAccount1 ->  Objects.equals(bankAccount1,bankAccount)).forEach(bankAccount1 -> bankAccount1.transfer(amount,destinationAccount));
+        customer.getAccounts().forEach(bankAccounts::remove);
+        customers.remove(customer);
     }
 
     public Optional<Customer> findCustomerByAccountNumber(int accountNumber){

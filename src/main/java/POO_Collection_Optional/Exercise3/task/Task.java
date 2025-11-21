@@ -4,13 +4,6 @@ import java.time.LocalDateTime;
 
 public class Task implements Comparable<Task>{
 
-    public enum State {
-        CANCELED(1) , FINISHED(2), ONGOING(3);
-        int weight;
-
-        State(Integer weight){this.weight = weight;}
-    }
-
     private String description;
     private LocalDateTime dueDate;
     private State state;

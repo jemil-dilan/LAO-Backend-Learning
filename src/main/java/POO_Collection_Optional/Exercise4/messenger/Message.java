@@ -6,12 +6,13 @@ public class Message {
 
     public enum Status {UNREAD, READ, DELETED}
 
-    private User author;
+    private Member author;
     private String messageContent;
     private LocalDateTime messageDateAndTime;
     private Status status;
 
     public Message(String messageContent) {
+
         this.messageContent = messageContent;
         this.messageDateAndTime = LocalDateTime.now();
     }
@@ -22,6 +23,10 @@ public class Message {
 
     public Status getStatus() {
         return status;
+    }
+
+    public Member getAuthor() {
+        return author;
     }
 
     @Override

@@ -5,13 +5,14 @@ public class Product {
     private String name;
     private String description;
     private double price;
-    private int quantity;
+    private int inStockQuantity;
 
-    public Product(String name, String description, double price, int quantity) {
+    public Product(String name, String description, double price, int inStockQuantity) {
+
         this.name = name;
         this.description = description;
         this.price = price;
-        this.quantity = quantity;
+        this.inStockQuantity = inStockQuantity;
     }
 
     public String getDescription() {
@@ -20,5 +21,13 @@ public class Product {
 
     public double getPrice() {
         return price;
+    }
+
+    @Override
+    public String toString() {
+        return "Product{" +
+                "name='" + name + '\'' +
+                ", price=" + price +
+                '}';
     }
 }

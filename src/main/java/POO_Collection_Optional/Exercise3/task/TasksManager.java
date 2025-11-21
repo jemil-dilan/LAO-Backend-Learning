@@ -13,7 +13,7 @@ public class TasksManager {
 
     public void addTask(Task task){
 
-        task.setState(Task.State.ONGOING);
+        task.setState(State.ONGOING);
         tasks.offer(task);
     }
 
@@ -21,7 +21,7 @@ public class TasksManager {
 
         if (Objects.equals(tasks.peek(), task)){
 
-            task.setState(Task.State.FINISHED);
+            task.setState(State.FINISHED);
             tasks.poll();
         }
     }
@@ -35,7 +35,7 @@ public class TasksManager {
             Task task1 = taskIterator.next();
             if (Objects.equals(task1,task)){
 
-                task1.setState(Task.State.CANCELED);
+                task1.setState(State.CANCELED);
                 tasks.remove(task1);
             }
         }

@@ -12,8 +12,20 @@ public class Theater {
 
     public void displayPlanning() {
         System.out.println("Planning des représentations :");
-        for (Representation rep : representations) {
-            rep.displayAvailablePlaces();
+        for (Representation representation : representations) {
+
+            System.out.println(representation);
+            representation.displayAvailablePlaces();
         }
+    }
+
+    public void addRepresentation(Representation representation){
+
+        representations.add(representation);
+    }
+
+    public void removeRepresentation(Representation representation){
+
+        representations.remove(representation);
     }
 }
