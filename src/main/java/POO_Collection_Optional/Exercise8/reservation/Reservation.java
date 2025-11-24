@@ -9,7 +9,7 @@ public class Reservation {
 
         this.spectatorName = spectatorName;
         this.place = place;
-        place.setPlaceAvailability(false);
+        this.place.setPlaceAvailability(false);
     }
 
     public String getSpectatorName() {
@@ -22,6 +22,6 @@ public class Reservation {
 
     @Override
     public String toString() {
-        return "Spectator: " + spectatorName + ", place n°" + place;
+        return "Spectator: " + spectatorName + ", place n°" + place.getPlaceNumber();
     }
 }

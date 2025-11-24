@@ -22,5 +22,17 @@ public abstract class Animal {
         return specificNeeds;
     }
 
+    public String getSpecies() {
+        return species;
+    }
+
     public abstract void eat();
+
+    @Override
+    public String toString() {
+        return "Animal{" +
+                "name='" + name + '\'' +
+                ", species='" + species + '\'' +
+                '}';
+    }
 }

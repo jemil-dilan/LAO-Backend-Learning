@@ -23,9 +23,11 @@ public class Representation {
     public void makeReservation(Reservation reservation){
 
         reservations.add(reservation);
-        availablePLaces.forEach(place -> {
-            if (Objects.equals(place.getPlaceNumber(),reservation.getPlace())){
+        Set<Place> availablePLacesCopy = new HashSet<>(availablePLaces);
+        availablePLacesCopy.forEach(place -> {
+            if (Objects.equals(place.getPlaceNumber(), reservation.getPlace().getPlaceNumber())){
                 place.setPlaceAvailability(false);
+                availablePLaces.remove(place);
             }
         });
     }
@@ -33,11 +35,13 @@ public class Representation {
     public void undoReservation(Reservation reservation){
 
         reservations.remove(reservation);
-        availablePLaces.forEach(place -> {
-            if (Objects.equals(place.getPlaceNumber(),reservation.getPlace())){
+        Set<Place> availablePLacesCopy = new HashSet<>(availablePLaces);
+        availablePLacesCopy.forEach(place -> {
+            if (Objects.equals(place.getPlaceNumber(), reservation.getPlace().getPlaceNumber())){
                 place.setPlaceAvailability(true);
             }
         });
+        availablePLaces.add(reservation.getPlace());
     }
 
     public LocalDate getDate() {

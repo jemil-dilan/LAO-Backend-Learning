@@ -28,4 +28,9 @@ public class Portfolio {
 
         investments.remove(investment);
     }
+
+    public void displayAllInvestments(){
+
+        investments.forEach(System.out::println);
+    }
 }

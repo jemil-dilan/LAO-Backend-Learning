@@ -10,8 +10,13 @@ public class Zoo {
 
     private List<Enclosure> enclosures;
 
-    public Zoo() {
-        this.enclosures = new ArrayList<>();
+    public Zoo(List<Enclosure> enclosures) {
+
+        this.enclosures = new ArrayList<>(enclosures);
+    }
+
+    public List<Enclosure> getEnclosures() {
+        return enclosures;
     }
 
     public void addEnclosure(Enclosure enclosure) {
@@ -30,5 +35,10 @@ public class Zoo {
         enclosures.stream().filter(enclosure1 -> Objects.equals(enclosure1, enclosure))
                 .findFirst()
                 .ifPresent(enclosure1 -> enclosure1.getAnimals().forEach(animal -> animal.setSpecificNeeds(specificNeeds)));
+    }
+
+    public void feedAllAnimals(){
+
+        enclosures.forEach(Enclosure::feedAnimals);
     }
 }

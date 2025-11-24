@@ -5,7 +5,7 @@ public class Place {
     private int placeNumber;
     private boolean placeAvailability;
 
-    public Place(int placeNumber, String category) {
+    public Place(int placeNumber) {
         this.placeNumber = placeNumber;
         this.placeAvailability = true;
     }

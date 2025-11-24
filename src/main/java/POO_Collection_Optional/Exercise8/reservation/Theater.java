@@ -15,7 +15,6 @@ public class Theater {
         for (Representation representation : representations) {
 
             System.out.println(representation);
-            representation.displayAvailablePlaces();
         }
     }
 
