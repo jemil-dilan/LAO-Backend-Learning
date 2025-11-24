@@ -1,31 +1,34 @@
 package POO_Collection_Optional.Exercise6.bankOptionalOwner;
 
-import java.util.LinkedList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 public class Customer {
 
     private String name;
     private int idNumber;
-    private List<BankAccount> accounts;
+    private Set<BankAccount> accounts;
 
-    public Customer(String name, int idNumber, List<BankAccount> accounts) {
+    public Customer(String name, int idNumber) {
         this.name = name;
         this.idNumber = idNumber;
-        this.accounts = new LinkedList<>(accounts) ;
+        this.accounts = new HashSet<BankAccount>();
     }
 
-    public void addAccount(BankAccount account){
-
-        accounts.add(account);
-    }
-
-    public void removeAccount (BankAccount account){
-
-        accounts.remove(account);
-    }
-
-    public List<BankAccount> getAccounts() {
+    public Set<BankAccount> getAccounts() {
         return accounts;
+    }
+
+    public void addAccount (BankAccount bankAccount){
+
+        accounts.add(bankAccount);
+    }
+
+    @Override
+    public String toString() {
+        return "Customer{" +
+                "name='" + name + '\'' +
+                ", idNumber=" + idNumber +
+                '}';
     }
 }

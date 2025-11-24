@@ -13,4 +13,11 @@ public class Concert extends Event{
         this.artist = artist;
         this.placeLimit = placeLimit;
     }
+
+    @Override
+    public String toString() {
+        return super.toString() + "Concert of the " +
+                "artist='" + artist + '\'' +
+                '}';
+    }
 }

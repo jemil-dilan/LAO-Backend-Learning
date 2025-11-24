@@ -11,10 +11,12 @@ public class Message {
     private LocalDateTime messageDateAndTime;
     private Status status;
 
-    public Message(String messageContent) {
+    public Message(String messageContent, Member author) {
 
+        this.author = author;
         this.messageContent = messageContent;
         this.messageDateAndTime = LocalDateTime.now();
+        this.status = Status.UNREAD;
     }
 
     public void setStatus(Status status) {
@@ -33,9 +35,7 @@ public class Message {
     public String toString() {
         return "|author=" + author +
                 "|\n----------------------------------------------" +
-                "\n|messageContent='" + messageContent + '\'' +
-                "|\n----------------------------------------------" +
-                "\n|messageDateAndTime=" + messageDateAndTime +
-                "|\n----------------------------------------------" ;
+                "\n|messageContent='" + messageContent + '\'' + " \n|messageDateAndTime=" + messageDateAndTime +
+                "|\n----------------------------------------------" + "| ---------------------------------------------- \n" ;
     }
 }

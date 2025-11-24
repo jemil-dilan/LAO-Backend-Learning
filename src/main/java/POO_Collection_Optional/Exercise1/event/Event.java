@@ -28,7 +28,6 @@ public class Event {
     public String toString() {
         return "Event{" +
                 "place='" + place + '\'' +
-                ", date=" + date +
-                '}';
+                ", date=" + date + " ";
     }
 }

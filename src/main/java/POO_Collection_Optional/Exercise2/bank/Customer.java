@@ -10,13 +10,30 @@ public class Customer {
     private int idNumber;
     private Set<BankAccount> accounts;
 
-    public Customer(String name, int idNumber, Set<BankAccount> accounts) {
+    public Customer(String name, int idNumber) {
         this.name = name;
         this.idNumber = idNumber;
-        this.accounts = new HashSet<BankAccount>(accounts);
+        this.accounts = new HashSet<BankAccount>();
+    }
+
+    public void setAccounts(Set<BankAccount> accounts) {
+        this.accounts = accounts;
     }
 
     public Set<BankAccount> getAccounts() {
         return accounts;
+    }
+
+    public void addAccount (BankAccount bankAccount){
+
+        accounts.add(bankAccount);
+    }
+
+    @Override
+    public String toString() {
+        return "Customer{" +
+                "name='" + name + '\'' +
+                ", idNumber=" + idNumber +
+                "}";
     }
 }

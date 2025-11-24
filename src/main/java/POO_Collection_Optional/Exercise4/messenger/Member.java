@@ -10,6 +10,11 @@ public class Member {
         this.userPhone = userPhone;
     }
 
+    public Message createMessage(String messageContent){
+
+        return new Message(messageContent, this);
+    }
+
     @Override
     public String toString() {
         return "Member{" +

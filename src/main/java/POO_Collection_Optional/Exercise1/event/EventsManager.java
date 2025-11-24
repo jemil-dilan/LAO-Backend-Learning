@@ -24,6 +24,7 @@ public class EventsManager {
 
     public void listAllEventsAtTheDate(LocalDate date){
 
+        System.out.println("List of elements at the date of : " + date);
         events.stream()
                 .filter(event -> event.getDate().isEqual(date))
                 .forEach(System.out::println);

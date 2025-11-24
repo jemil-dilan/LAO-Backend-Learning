@@ -12,8 +12,9 @@ public class Representation {
     private Set<Place> availablePLaces;
     private Set<Reservation> reservations;
 
-    public Representation(LocalDate date, Set<Place> availablePLaces, Set<Reservation> reservations) {
+    public Representation(String name, LocalDate date, Set<Place> availablePLaces, Set<Reservation> reservations) {
 
+        this.name = name;
         this.date = date;
         this.availablePLaces = new HashSet<>(availablePLaces);
         this.reservations = new HashSet<>(reservations);

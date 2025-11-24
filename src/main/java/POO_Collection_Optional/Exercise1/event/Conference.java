@@ -11,4 +11,12 @@ public class Conference extends Event{
         super(date, place, guests);
         this.topic = topic;
     }
+
+    @Override
+    public String toString() {
+
+        return super.toString() + "Conference topic='"
+                + topic + '\'' +
+                '}';
+    }
 }

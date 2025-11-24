@@ -11,4 +11,12 @@ public class BirthDay extends Event{
         super(date, place, guests);
         this.birthDayOwnerName = birthDayOwnerName;
     }
+
+    @Override
+    public String toString() {
+
+        return  super.toString() + "BirthDay Of'" +
+                 birthDayOwnerName + '\'' +
+                '}';
+    }
 }

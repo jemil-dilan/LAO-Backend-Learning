@@ -13,6 +13,10 @@ public class Discussion {
         this.members = new HashSet<>(members);
     }
 
+    public void setDiscussionFlow(List<Message> discussionFlow) {
+        this.discussionFlow = discussionFlow;
+    }
+
     public void display(){
 
         discussionFlow.forEach(
@@ -23,12 +27,11 @@ public class Discussion {
         );
     }
 
-    private void sendMessage(Message message){
+    public void sendMessage(Message message){
 
         if (members.contains(message.getAuthor())){
 
             discussionFlow.add(message);
-            message.setStatus(Message.Status.UNREAD);
         }
     }
 
@@ -43,6 +46,7 @@ public class Discussion {
 
     public void displayNotifications(){
 
+        System.out.println("\t\tThese are your notifications".toUpperCase());
         discussionFlow.reversed().stream().filter(message -> message.getStatus() == Message.Status.UNREAD).limit(3).forEach(System.out::println);
     }
 

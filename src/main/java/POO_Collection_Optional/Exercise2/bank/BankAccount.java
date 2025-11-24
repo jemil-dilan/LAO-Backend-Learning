@@ -24,7 +24,7 @@ public class BankAccount {
 
             setBalance(this.balance - amount);
         } else {
-            System.out.println("The balance is insuffisant");
+            System.out.println("The balance is insufficient");
         }
     }
 
@@ -46,5 +46,14 @@ public class BankAccount {
 
         this.withdraw(amount);
         destinationAccount.deposit(amount);
+    }
+
+    @Override
+    public String toString() {
+        return "BankAccount{" +
+                "accountNumber=" + accountNumber +
+                ", owner=" + owner +
+                ", balance=" + balance +
+                "}";
     }
 }

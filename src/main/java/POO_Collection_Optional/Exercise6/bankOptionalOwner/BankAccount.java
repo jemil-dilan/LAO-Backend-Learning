@@ -51,4 +51,13 @@ public class BankAccount {
         this.withdraw(amount);
         destinationAccount.deposit(amount);
     }
+
+    @Override
+    public String toString() {
+        return "BankAccount{" +
+                "accountNumber=" + accountNumber +
+                ", owner=" + owner +
+                ", balance=" + balance +
+                '}';
+    }
 }

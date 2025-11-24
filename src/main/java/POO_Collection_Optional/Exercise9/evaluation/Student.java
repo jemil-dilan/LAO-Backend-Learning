@@ -14,12 +14,12 @@ public class Student {
         this.evaluationsNotes = new HashMap<>(evaluationsNotes);
     }
 
-    private void getEvaluationResult(Evaluation evaluation){
+    public void putEvaluationResult(Evaluation evaluation){
 
         evaluationsNotes.put(evaluation, evaluation.getNote());
     }
 
-    private double calculateAverage(HashMap<Evaluation, Double> evaluationsNotes) {
+    public double calculateAverage(HashMap<Evaluation, Double> evaluationsNotes) {
 
         double sumOfNotesTimesCoefficient = 0;
         int sumOfCoefficients = 0;
